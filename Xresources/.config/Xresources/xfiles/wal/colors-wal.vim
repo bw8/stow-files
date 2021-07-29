@@ -1,0 +1,23 @@
+" Special
+let wallpaper  = "/home/bolivar/imgs/walls/the_neon_shallows.png"
+let background = "#0b1118"
+let foreground = "#a6c1b8"
+let cursor     = "#a6c1b8"
+
+" Colors
+let color0  = "#0b1118"
+let color1  = "#554B41"
+let color2  = "#962A30"
+let color3  = "#F21B2B"
+let color4  = "#DF4D49"
+let color5  = "#2EA564"
+let color6  = "#F6934A"
+let color7  = "#a6c1b8"
+let color8  = "#748780"
+let color9  = "#554B41"
+let color10 = "#962A30"
+let color11 = "#F21B2B"
+let color12 = "#DF4D49"
+let color13 = "#2EA564"
+let color14 = "#F6934A"
+let color15 = "#a6c1b8"

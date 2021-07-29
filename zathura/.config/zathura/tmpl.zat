@@ -1,0 +1,37 @@
+set completion-group-bg         "%bg%"
+set completion-group-fg         "%fg%"
+set completion-bg               "%bg%"
+set completion-fg               "%fg%"
+set completion-highlight-bg     "%bg%"
+set completion-highlight-fg     "%fg%"
+
+set notification-error-bg       "%cl11%"
+set notification-error-fg       "%cl4%"
+set notification-warning-bg     "%cl6%"
+set notification-warning-fg     "%cl0%"
+set notification-bg             "%cl5%"
+set notification-fg             "%cl0%"
+
+set index-bg                    "%bg%"
+set index-fg                    "%cl4%"
+set index-active-bg             "%cl4%"
+set index-active-fg             "%cl15%"
+
+set inputbar-bg                 "%bg%"
+set inputbar-fg                 "%fg%"
+
+set statusbar-bg                "%cl4%"
+set statusbar-fg                "%cl15%"
+
+set highlight-color             "%cl5%"
+set highlight-active-color      "%cl2%"
+
+set recolor                     true
+set recolor-keephue             true
+set recolor-reverse-video       true
+
+set default-bg                  "%bg%"
+set default-fg                  "%fg%"
+
+set recolor-lightcolor          "%bg%"
+set recolor-darkcolor           "%fg%"

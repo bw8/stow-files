@@ -1,0 +1,8 @@
+! Xclock colors.
+XClock*foreground: fg
+XClock*background: bg
+XClock*majorColor:  rgba:a6/c1/b8/ff
+XClock*minorColor:  rgba:a6/c1/b8/ff
+XClock*hourColor:   rgba:a6/c1/b8/ff
+XClock*minuteColor: rgba:a6/c1/b8/ff
+XClock*secondColor: rgba:a6/c1/b8/ff

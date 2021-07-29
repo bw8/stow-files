@@ -1,0 +1,59 @@
+#==============================================================#
+#  _   _                   _                 _    #            #
+# | \ | | _____      _____| |__   ___   __ _| |_  # 2021-07-23 #
+# |  \| |/ _ \ \ /\ / / __| '_ \ / _ \ / _` | __| # v0.9.1     #
+# | |\  |  __/\ V  V /\__ \ |_) | (_) | (_| | |_  #            #
+# |_| \_|\___| \_/\_/ |___/_.__/ \___/ \__,_|\__| # bw8        #
+#                                                 #            #
+#==============================================================#
+# General
+auto-reload yes
+
+# Keybinds
+bind-key j down
+bind-key k up
+bind-key j next articlelist
+bind-key k prev articlelist
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key g home 
+bind-key G end
+bind-key d pagedown 
+bind-key u pageup
+bind-key l open 
+bind-key h quit 
+bind-key a toggle-article-read 
+bind-key n next-unread 
+bind-key N prev-unread 
+bind-key D pb-download
+bind-key U show-urls 
+bind-key x pb-delete
+bind-key ; macro-prefix
+
+# Macros
+macro l open-in-browser
+macro v set browser "link2mpv -l"; open-in-browser ; set browser firefox
+macro i set browser "setsid -f imageboat"; open-in-browser ; set browser firefox
+
+# Colors
+color background	color2	    default
+color listnormal	color4	    default	
+color listnormal_unread	color10	    default
+color listfocus		color0	    color4
+color listfocus_unread	color15	    color4
+color info		color0	    color5
+color article		default     default
+
+# Ignore feeds download
+#ignore-article "*" "feedlink =~ \"░*\""
+
+# Highlight
+# Headings colors
+highlight feedlist "---.*---."       color6 default bold
+# Hide (0/0) numbers for headings 
+highlight feedlist ".*0/0.."        default default invis
+highlight article "(^Feed:.*|^Date:.*|^Author:.*)" color4 default bold
+highlight article "(^Title:.*)" color2 default
+highlight article "(^Link:.*)" color3 default
+
+highlight article ":.*\\(link\\)$" color11 default

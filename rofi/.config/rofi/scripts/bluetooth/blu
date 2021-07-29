@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+#theme=""
+dir="$HOME/.config/rofi/themes"
+
+rofi_command="rofi -theme $dir/$theme "
+
+#Options
+disconnect=""
+connect=""
+new=""
+last=""
+poweroff=""
+
+#Confirmation
+confirm_exit() {
+    rofi -dmenu\
+            -i\
+            -no-fixed-num-lines\
+            -p "Are You Sure? : "\
+}
+
+# Variable passed to rofi
+options="$disconnect\n$connect\n$new\n$last\n$poweroff"
+
+chosen="$(echo -e "$options" | $rofi_command -p "Uptime: 2" -dmenu -selected-row 2)"
+
+case $chosen in
+    $disconnect)
+        ;;
+    $connect)
+        ;;
+    $new)
+        ;;
+    $last)
+        ;;
+    $poweroff)
+        ;;
+esac
+
+exit 0
+
+#out="$(bluetoothctl show)"
+#name=$(echo $out | grep -E 'Name: *' | cut -d ' ' -f 2-)
+#powered=$(echo $out | grep -E 'Powered: *' | cut -d ' ' -f 2-)
+#discoverable=$(echo $out | grep -E 'Discoverable: *' | cut -d ' ' -f 2-)
+#pairable=$(echo $out | grep -E 'Pairable: *' | cut -d ' ' -f 2-)
+#
+#
+#dunstify "$name $powered $discoverable $pairable"
+#echo "Connect to last"
+#echo "Search devices"
+#echo "Power off"

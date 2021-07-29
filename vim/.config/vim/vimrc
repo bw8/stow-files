@@ -1,0 +1,143 @@
+" __   _(_)_ __ ___  _ __ ___ 
+" \ \ / / | '_ ` _ \| '__/ __|
+"  \ V /| | | | | | | | | (__ 
+"   \_/ |_|_| |_| |_|_|  \___|
+" ===========================================================================>
+"                             
+" Set 'nocompatible' to ward off unexpected things that your distro might
+" have made should have to live without.
+set nocompatible
+
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for  plugins that are filetype specific.
+" Identation
+filetype indent on
+set autoindent
+
+" Use system clipboard
+" set clipboard=unnamedplus
+
+
+"   ____                           _ 
+"  / ___| ___ _ __   ___ _ __ __ _| |
+" | |  _ / _ \ '_ \ / _ \ '__/ _` | |
+" | |_| |  __/ | | |  __/ | | (_| | |
+"  \____|\___|_| |_|\___|_|  \__,_|_|
+" ======================================================================>
+
+set number              " Show line number
+set relativenumber 
+
+set tabstop=8           " Set width of tabs
+set shiftwidth=4        " without actually
+set softtabstop=4       " change them set expandtab           " 
+set expandtab		" insert spaces instead of tabs unless CTRL+v is pressed
+
+set showcmd             " Show (partial) command in last line
+set history=500         " Save last 500 :cmdline commands
+set showmode            " Show current mode at bottom
+set autoread            " Reload files changed outside vim
+
+set scrolloff=4         " Start scrolling 4 lines before edge
+
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+set path+=**
+
+" Display all matching files when we tab complete
+set wildmenu
+set showmatch
+set incsearch           " Highlight search results
+set smartcase           " case-insensitive search if only lowercase
+
+" Enable syntax highlighting
+filetype plugin on
+syntax on
+au BufNewFile,BufRead /*.rasi setf css  " Syntax highlight for rofi files
+
+" set hlsearch " highlight all strings
+nnoremap <leader><space> :nohlsearch<CR>
+
+set mouse=a             " double click on tags like CTRL-]
+
+let g:netrw_banner=0		            " disable annoying banner
+let g:netrw_browse_split=4	            " open in prior window
+let g:netrw_altv=1		            " open splitsto the right
+let g:netrw_liststyle=3 	            " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+nnoremap ,html :-1read $HOME/.config/vim/.skeleton.html<CR>3jwf>a
+set makeprg=bundle\ exec\ rspec\ -f\ QuickfixFormatter
+
+"      _        _             _ _            
+"  ___| |_ __ _| |_ _   _ ___| (_)_ __   ___ 
+" / __| __/ _` | __| | | / __| | | '_ \ / _ \
+" \__ \ || (_| | |_| |_| \__ \ | | | | |  __/
+" |___/\__\__,_|\__|\__,_|___/_|_|_| |_|\___|
+" ===========================================================================>
+" source '~/.config/vim/statusline.vim'
+
+" let g:currentmode={
+"        \ 'n'  : 'NORMAL ',
+"        \ 'v'  : 'VISUAL ',
+"        \ 'V'  : 'V·Line ',
+"        \ "\<C-V>" : 'V·Block ',
+"        \ 'i'  : 'INSERT ',
+"        \ 'R'  : 'R ',
+"        \ 'Rv' : 'V·Replace ',
+"        \ 'c'  : 'Command ',
+"        \}
+" 
+" set laststatus=2
+" set statusline=
+" "set statusline+=%{3}{ReadOnly()}
+" set statusline+=%4*
+" set statusline+=\  
+" set statusline+=\ %.50f				    " filename
+" set statusline+=\ %8* 
+" "set statusline+=%{&modified?'\ +\ ':''}
+" set statusline+=%m
+" set statusline+=%9*
+" " set statusline+=%{&bomb?'':'[BOM]'}
+" set statusline+=%=				    " switch padding to right
+" set statusline+=%2*
+" set statusline+=\ %{toupper(g:currentmode[mode()])}  
+" set statusline+=%5*
+" set statusline+=\ %p
+" set statusline+=%%
+" set statusline+=\   
+" 
+" hi User1 ctermbg=1 ctermfg=0
+" hi User2 ctermbg=2 ctermfg=0
+" hi User3 ctermbg=3 ctermfg=0
+" hi User4 ctermbg=4 ctermfg=15
+" 
+" hi User5 ctermbg=5 ctermfg=0
+" hi User6 ctermbg=6 ctermfg=0
+" hi User7 ctermbg=7 ctermfg=0
+" hi User8 ctermbg=12 ctermfg=0	cterm=bold
+" hi User9 ctermbg=0 ctermfg=0
+" 
+" hi warning ctermbg=0 ctermfg=0
+" 
+" function! ReadOnly() abort
+"   if &readonly || !&modifiable
+"     set statusline+=%4*
+"     return ''
+"     set statusline+=%*
+"   else
+"     return ''
+" endfunction
+" 
+"
+
+"        _      _ _            
+"   __ _(_)_ __| (_)_ __   ___ 
+"  / _` | | '__| | | '_ \ / _ \
+" | (_| | | |  | | | | | |  __/
+"  \__,_|_|_|  |_|_|_| |_|\___|
+"                              
+
+let g:airline_theme='atomic'
+

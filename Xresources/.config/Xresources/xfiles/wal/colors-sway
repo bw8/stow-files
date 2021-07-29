@@ -1,0 +1,21 @@
+set $wallpaper /home/bolivar/imgs/walls/the_neon_shallows.png
+
+set $background #0b1118
+set $foreground #a6c1b8
+
+set $color0 #0b1118
+set $color1 #554B41
+set $color2 #962A30
+set $color3 #F21B2B
+set $color4 #DF4D49
+set $color5 #2EA564
+set $color6 #F6934A
+set $color7 #a6c1b8
+set $color8 #748780
+set $color9 #554B41
+set $color10 #962A30
+set $color11 #F21B2B
+set $color12 #DF4D49
+set $color13 #2EA564
+set $color14 #F6934A
+set $color15 #a6c1b8

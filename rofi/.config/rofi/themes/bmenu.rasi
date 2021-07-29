@@ -1,0 +1,43 @@
+/**
+ * ROFI Color theme
+ * User: Qball
+ * Copyright: Dave Davenport
+ */
+
+@import "colors.rasi"
+
+* {
+	font: "Inconsolata Nerd Font-Regular 12";
+}
+
+
+#window {
+    anchor:     south;
+    location:   south;
+    width:      100%;
+    padding:    0px;
+    children:   [ horibox ];
+}
+
+#horibox {
+    orientation: horizontal;
+    children:   [ entry, listview ];
+}
+
+#listview {
+    layout:     horizontal;
+    spacing:    5px;
+    lines:      100;
+}
+
+#entry {
+    expand:     false;
+    width:      6em;
+}
+
+#element {
+    margin: 0px 2px 0px 2px;
+}
+#element selected {
+    background-color: @dple;
+}

@@ -1,0 +1,28 @@
+@import "../colors.rasi"
+
+
+* {
+    background-color:       @background;
+    text-color:             @foreground;
+}
+
+window {
+    height:                 220px;
+    width:                  600px;
+    padding:                0px;
+    border:                 1px;
+    border-radius:          0px;
+    border-color:           @border;
+    location:               northeast;
+    x-offset:               -25px;
+    y-offset:               50px;
+}
+
+
+inputbar {
+    enabled:                false;
+}
+
+box {
+    padding:                80px;
+}

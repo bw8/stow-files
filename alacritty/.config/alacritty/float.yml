@@ -1,0 +1,7 @@
+import:
+   - /home/bw8/.config/alacritty/alacritty.yml
+
+window:
+  dimensions:
+    columns: 80
+    lines: 10  
