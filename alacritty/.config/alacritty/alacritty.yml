@@ -16,8 +16,8 @@ import:
 #========================================= WINDOW ========================================
 window:
   dimensions:
-    columns: 170
-    lines: 45  
+    columns: 160
+    lines: 40  
   padding:
     x: 2
     y: 1
