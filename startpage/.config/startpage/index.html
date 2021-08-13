@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ようこそ</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="style.css">
+                <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+                <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet"> -->
+		<link rel="icon" href="./favicon.ico">
+                <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+		<script src="./config.js"></script>
+
+	</head>
+	<body>
+		<div id="date">
+			
+		</div>
+		<div id="toggle">
+			<span></span>
+			<span></span>
+		</div>
+		<div class="column-container">
+			<div class="left">
+                            <img id="cover" alt="" align="center">
+			</div>
+
+			<div class="clock">
+				<div id="hour" class=""></div>
+				<div id="separator" class=""></div>
+				<div id="minutes" class=""></div>
+			</div>
+
+			<div class="right">
+				<div id="greetings" class=""></div>
+				<div class="search_box">
+					<form id="search" method="get">
+					<input id="input_box" class="input_box" type="text" name="q" autocomplete="off"/>
+				</div>
+				<div class="container">
+					<div class="column">
+						<p>UGR</p>
+						<a id="git" class="link" href="https://pradogrado2021.ugr.es"><img src="icons/prado.ico">PRADO</a>
+						<a id="git" class="link" href="https://swad.ugr.es/es"><img src="icons/swad.ico">SWAD</a>
+						<a id="git" class="link" href="https://drive.google.com"><img src="icons/drive.ico">Drive</a>
+						<a id="git" class="link" href="https://wuolah.com"><img src="icons/wuolah.ico">Wuolah</a>
+						<a class="link null">null</a>
+					</div>
+					<div class="column">
+						<p>Reddit</p>
+						<a class="link" href="https://reddit.com/u/boliwiz/saved"><img src="icons/reddit.ico">Saved</a>
+						<a class="link" href="https://reddit.com/r/archlinux"><img src="icons/archlinux.ico">Arch</a>
+						<a class="link" href="https://reddit.com/r/startpages"><img src="icons/reddit.ico">Startpages</a>
+						<a class="link" href="https://reddit.com/r/firefoxcss"><img src="icons/firefoxcss.ico">Firefoxcss</a>
+						<a class="link" href="https://reddit.com/r/unixporn"><img src="icons/unixporn.ico">Unixporn</a>
+						<a class="link" href="https://reddit.com/r/piracy"><img src="icons/piracy.ico">Piracy</a>
+						<a class="link" href="https://reddit.com/r/privacy"><img src="icons/privacy.ico">Privacy</a>
+						<a class="link null">null</a>
+						<a class="link null">null</a>
+					</div>
+					<div class="column">
+						<p>Social</p>
+						<a class="link" href="https://youtube.com"><img src="icons/youtube.ico">YouTube</a>
+						<a class="link" href="https://feedly.com"><img src="icons/feedly.ico">Feedly</a>
+						<a class="link" href="https://mail.tutanota.com"><img src="icons/tutanota.ico">Tutanota</a>
+						<a class="link" href="https://open.spotify.com"><img src="icons/spotify.ico">Spotify</a>
+						<a class="link" href="https://gitlab.com/alededorigo/dotfiles"><img src="https://gitlab.com/favicon.ico">dotfiles</a>
+						<a class="link null">null</a>
+					</div>
+                                        <!-- <div class="column"> -->
+                                        <!-- <p>WM</p> -->
+                                        <!-- <a class="link" href="https://i3wm.org/"><img src="https://i3wm.org/favicon.ico">i3</a> -->
+                                        <!-- <a class="link" href="https://herbstluftwm.org/"><img src="https://herbstluftwm.org/favicon.ico">Hl</a> -->
+                                        <!-- <a class="link" href="http://www.qtile.org/"><img src="https://www.python.org/favicon.ico">qTile</a> -->
+                                        <!-- <a id="git" class="link" href="https://github.com/baskerville/bspwm/wiki"><img src="https://github.com/favicon.ico">Bspwm</a> -->
+                                        <!-- <a class="link" href="https://xmonad.org/"><img src="https://www.haskell.org/img/favicon.ico">Xmonad</a> -->
+                                        <!-- <a id="git" class="link" href="https://github.com/conformal/spectrwm/wiki/Tutorial"><img src="https://github.com/favicon.ico">Spectrwm</a> -->
+                                        <!-- </div> -->
+				</div>
+			</div>
+		</div>
+
+		<div id="error" class="error">
+			<h1>Error in config.js</h1>
+			<p>You should choose a search engine from the list</p>
+			<div class="list">
+				<p>List:</p>
+				<ul>
+					<li>google</li>
+					<li>duckduckgo</li>
+					<li>qwant</li>
+					<li>startpage</li>
+					<li>ecosia</li>
+					<li>youtube</li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="./scripts/config.js"></script>
+		<script src="./scripts/darkmode.js"></script>
+	</body>
+</html>
