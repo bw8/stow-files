@@ -1,0 +1,3 @@
+! Make Capslock act like Escape and Shift+Capslock act like Capslock
+clear Lock
+keycode 66 = Escape Caps_Lock

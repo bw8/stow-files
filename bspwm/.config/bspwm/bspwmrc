@@ -10,6 +10,9 @@
 # Xresources
 [[ -f ~/.config/Xresources/Xresources ]] && xrdb -merge -I$HOME ~/.config/Xresources/Xresources
 
+# Xmodmap
+[[ -f ~/.config/Xmodmap ]] && xmodmap ~/.config/Xmodmap
+
 # Env colors
 [[ -f ~/.config/colors/colors.sh ]] && source "${HOME}/.config/colors/colors.sh"
 
