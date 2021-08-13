@@ -1,0 +1,16 @@
+# ~/.ticker.yaml
+show-tags: true
+show-fundamentals: true
+show-separator: true
+interval: 10
+watchlist:
+  - NET
+  - TEAM
+  - ESTC
+  - BTC-USD
+  - BTC-EUR
+  - ETH-USD
+  - ETH-EUR
+  - XMR-USD
+  - XMR-EUR
+  - TSLA
