@@ -1,0 +1,2 @@
+# Default directory video path
+-o ~/vids/yt-dl/%(title)s.%(ext)s
