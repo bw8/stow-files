@@ -1,0 +1,10 @@
+#!/bin/bash
+
+player="spotifyd"
+status="$(playerctl metadata -p spotifyd --format {{status}})"
+title="$(playerctl metadata -p spotifyd --format {{title}})"
+artist="$(playerctl metadata -p spotifyd --format {{artist}})"
+
+output="$status $title $artist"
+
+notify-send "$output"

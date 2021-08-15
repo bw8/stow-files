@@ -1,0 +1,23 @@
+#!/bin/env bash
+
+#echo $DOTFILES_DIR
+cp -al -t $DOTFILES_DIR/home/bin /home/bolivar/bin/*
+# notify-send 'Backed up $HOME/bin folder'
+yay -Qqe > $DOTFILES_DIR/pkglist+aur
+notify-send "Backed up binaries list of installed packages"
+
+dirlist=$(cat $DOTFILES_DIR/dirlist.txt)                 
+for i in ${dirlist}
+do
+    cp -al -t "$DOTFILES_DIR/home/config" "$HOME/.config/$i"
+    echo dotfiles dir is $DOTFILES_DIR
+    echo "$i backed up"
+done
+
+# Remove conflictive directories
+rm -rf "$DOTFILES_DIR/home/config/zsh/oh-my-zsh"
+rm $DOTFILES_DIR/home/config/zsh/.*
+
+rm -rf "$DOTFILES_DIR/home/config/zsh/oh-my-zsh"
+
+notify-send "Dotfiles backed up"

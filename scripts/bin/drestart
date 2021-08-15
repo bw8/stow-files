@@ -1,0 +1,5 @@
+#!/bin/bash
+pidof "sxhkd" && killall "dunst"
+dunst &
+
+notify-send "Dunst Restarted"

@@ -1,0 +1,68 @@
+#!/bin/bash
+
+function show_usage (){
+    printf "Usage: $0 [options [parameters]]\n"
+    printf "\n"
+    printf "Options:\n"
+    printf " -h|--help	        Print help\n"
+    printf " -r|--reddit-link	Link from clipboard to reddit post.\n"
+    printf " -l|--link	        Link to reddit post.\n"
+    return 0
+}
+
+
+function clip2link (){
+    link=$(xclip -selection c -o)
+    if [ "$link" == "" ]; then exit; fi
+    return 0
+}
+
+function parse_info (){
+    json=$(curl -sH "User-agent: 'botijo'" "$link".json | jq '.')
+
+    # if image == "" ; maybe gallery? | grep -oP '(?<="id": ").*(?=")'
+    #image=$(echo "$json" | grep -oP '(?<="url_overridden_by_dest": ").*(?=",)') 
+    image=$(echo "$json" | grep -m1 -oP '(?<="url_overridden_by_dest": ").*\.[jpegnmif]{3,4}') 
+    video=$(echo "$json" | grep -m1 -oP '(?<="fallback_url": ").*\.[mp4]+')
+
+    subr=$(echo "$json" | grep -m1 -oP '(?<="subreddit": ").*(?=",)') 
+    return 0
+}
+
+
+while [ ! -z "$1" ]; do
+    case "$1" in
+        -h|--help)
+            show_usage
+            ;;
+        -l|--link)
+            show_usage
+            echo "Option in develop phase..."
+            ;;
+        -r|--reddit-link)
+            clip2link
+            parse_info
+            if [[ -n "$video" ]]; then 
+                thumb=$(echo "$json" | grep -oP '(?<="thumbnail": ").*\.[jpegnmif]+') 
+                wget -q -np -nc -P "/tmp" "$thumb"
+                thumbname=$(basename "$thumb")
+
+                wget -q -np -nc -P "$HOME/imgs/Boost/$subr" "$video"
+                name=$(basename "$video")
+
+                notify-send -u normal -t 3000 "$name" "saved from r/$subr" -i "/tmp/$thumbname"
+                rm /tmp/$thumbname
+            else
+                wget -q -np -nc -P "$HOME/imgs/Boost/$subr" "$image"
+                name=$(basename "$image")
+                notify-send -u normal -t 3000 "$name" "saved from r/$subr" -i "$HOME/imgs/Boost/$subr/$name"
+            fi
+            ;;
+        *)
+        echo "Error; Wrong input or something..."
+        show_usage
+    esac
+shift
+done
+
+

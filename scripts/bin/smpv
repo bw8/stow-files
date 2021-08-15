@@ -1,0 +1,4 @@
+#!/bin/bash
+
+setsid -f mpv >/dev/null 2>&1 $*
+notify-send -u normal -t 1500 -a mpv "Loading.. " "$*"

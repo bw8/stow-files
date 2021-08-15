@@ -1,0 +1,80 @@
+#!/bin/bash
+# Dependencies: mpv youtube-dl wget curl notify-send* jq socat
+
+#link=$(xclip -selection c -o)
+#setsid -f mpv >/dev/null 2>&1 $link
+#json=$(curl https://www.youtube.com/oembed\?url\=$link\&format\=json | jq '.')
+
+
+function show_usage (){
+    printf "Usage: $0 [options [parameters]]\n"
+    printf "\n"
+    printf "Options:\n"
+    printf " -h|--help	Print help\n"
+    printf " -n|--new	Open clipboard link on new mpv window\n"
+    printf " -q|--queue	Queue clipboard link to existing mpv window\n"
+    printf " -l|--link	Link provided by argument\n"
+    return 0
+}
+
+function clip2link (){
+    link=$(xclip -selection clipboard -o)
+    return 0
+}
+
+function parse_info (){
+    json=$(curl https://www.youtube.com/oembed\?url\=$link\&format\=json | jq '.')
+    title=$(echo "$json" | grep -oP '(?<="title": ").*(?=")')
+    thumb=$(echo "$json" | grep -oP '(?<="thumbnail_url": ").*(?=",)')
+    author=$(echo "$json" | grep -oP '(?<="author_name": ").*(?=",)')
+    wget -q -np -nc -P "/tmp/linker/" $thumb
+
+    return 0
+}
+
+while [ ! -z "$1" ]; do
+    case "$1" in
+        -h|--help)
+            show_usage
+            ;;
+        -n|--new)
+            #mpv --idle --input-ipc-server=/tmp/mpv-ipc "$link" &
+            clip2link
+            parse_info
+            setsid -f mpv >/dev/null 2>&1 "$link"
+            notify-send -u normal -t 3000 -a mpv "Loading.. " "$title $author" -i "/tmp/linker/$(basename $thumb)"
+            ;;
+        -q|--queue)
+            clip2link
+            parse_info
+            if [[ -n $(pidof mpv) ]]; then 
+                echo "loadfile \"${link}\" append-play" | socat - /tmp/mpv-ipc
+                notify-send -u normal -t 3000 -a mpv "Queued.. " "$title $author" -i "/tmp/linker/$(basename $thumb)"
+            else
+                setsid -f mpv >/dev/null 2>&1 "$link"
+                notify-send -u normal -t 3000 -a mpv "Loading.. " "$title $author" -i "/tmp/linker/$(basename $thumb)"
+            fi
+            ;;
+        -l|--link)
+            shift
+            link=$1
+            parse_info
+            setsid -f mpv >/dev/null 2>&1 "$link"
+            notify-send -u normal -t 3000 -a mpv "Loading.. " "$title $author" -i "/tmp/linker/$(basename $thumb)"
+            echo "Option in develop phase..."
+            ;;
+        *)
+        echo "Error; Wrong input or something..."
+        show_usage
+    esac
+shift
+done
+
+
+#if [[ ! -n $(pidof mpv) ]] || [[ $1 == "-n" ]]; then 
+#elif [[ $1 == "-v" ]]; then
+	
+#else
+#fi
+rm /tmp/linker/$(basename $thumb 2>/dev/null) 2>/dev/null
+

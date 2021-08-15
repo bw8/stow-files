@@ -1,0 +1,13 @@
+#!/bin/bash
+while [[ true ]] 
+do
+    # colour="$( xclip -selection primary -o | grep -ioP '#[0-9a-f]{6}')"
+    colour="$(xclip -selection primary -o)"
+    echo "$colour" 
+    # if [ -n $colour ] 
+    if [[ ! $colour =~ '#[0-9A-f]{6}' ]]
+    then 
+        echo "YES $colour i" 
+        printf '\e]11;%s\a' "$colour"
+    fi
+done

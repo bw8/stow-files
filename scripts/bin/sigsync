@@ -1,0 +1,7 @@
+#!/bin/bash
+#rsync -avzP /home/bolivar/msc/signal*.aac /home/bolivar/sync/Tomb/notes
+#mv /home/bolivar/msc/signal*.aac /home/bolivar/sync/Tomb/notes
+find $HOME/msc -name 'signal*.aac' -exec mv -t $HOME/sync/Tomb/signal/notes {} \;
+find $HOME/pixs -name 'signal*.jpg' -or -name 'signal*.png' -exec mv -t $HOME/sync/Tomb/signal {} \;
+find $HOME/pixs -name 'signal*.jpg' -or -name 'signal*.png' -exec mv -t $HOME/sync/Tomb/signal {} \;
+find $HOME/pixs -name '*.jpg' -or -name '*.png' -exec mv -t $HOME/sync/Tomb/signal {} \;

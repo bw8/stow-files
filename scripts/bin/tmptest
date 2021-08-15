@@ -1,0 +1,25 @@
+#!/bin/bash
+
+
+for i in {1..5} 
+do
+	case "$i" in
+		1)
+			echo "es uno"
+			;;
+		2)
+			echo "es dos"
+			;;
+		3)
+			echo "es tres"
+			;;
+		4)
+			echo "es cuatro"
+			;;
+		5)
+			echo "es cinco"
+			;;
+		*)
+        esac
+
+done

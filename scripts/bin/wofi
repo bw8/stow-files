@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+rofi_command="rofi -i -theme wofi.rasi"
+
+wlan="$(nmcli | sed 1q)"
+# Options displayed by rofi
+option1="Sikopiso 3.0 5G"
+option2="Sikopiso 3.1"
+option3="Open nmtui"
+
+options="$option1\n$option2\n$option3"
+
+# Prompt menu to user displaying actual connection
+chosen="$(echo -e "$options" | $rofi_command -p $wlan -dmenu )"
+
+case $chosen in
+    $option1)
+        # Connect to Sikopiso 3.0 5G
+        dunstify "nmcli c up Sikopiso 3.0 5G"
+        ;;
+    $option2)
+        # Connect to Sikopiso 3.1
+        dunstify "nmcli c up Sikopiso 3.1"
+        ;;
+    $option3)
+        # Open alacritty and run nmtui
+        alacritty -e nmtui
+        ;;
+esac
+

@@ -1,0 +1,44 @@
+#!/usr/bin/bash
+
+WORKINGDIR="$HOME/.config/rofi"
+MAP="$WORKINGDIR/scripts.csv"
+SHDIR="$WORKINGDIR/scripts"
+
+
+function show_menu (){
+    #cat "$MAP" | cut -d ',' -f 1
+    printf "brightness\n"
+    printf "wifi\n"
+    printf "window switch\n"
+    #printf " -n|--new	Open clipboard link on new mpv window\n"
+    #printf " -q|--queue	Queue clipboard link to existing mpv window\n"
+    #printf " -l|--link	Link provided by argument\n"
+    return 0
+}
+
+#if [[ "$2" != "" ]]; then
+#    exit 1
+#fi
+#echo 0 "$0" 1 "$1" 2 "$2" 3 "$3"
+#
+
+case "$1" in
+    "wifi")
+        bash "$SHDIR/wifi.sh"
+        ;;
+    "window switch")
+        dunstify wifi.sh
+        ;;
+    *)
+        show_menu
+        dunstify "$1"
+esac
+
+#    | rofi -dmenu -p "Util " \
+#    | head -n 1 \
+#    | xargs -i --no-run-if-empty grep "{}" "$MAP" \
+#    | cut -d ',' -f 2 \
+#    | head -n 1 \
+#    | xargs -i --no-run-if-empty /usr/bin/zsh -c "{}"
+#
+#exit 0

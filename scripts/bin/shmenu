@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+
+selected=$(ls "$HOME/bin" | rofi -dmenu -columns 5 -width 50 -p "Scripts")
+[[ -z $selected ]] && exit
+#autosh $selected
+#echo $selected
+selected="$HOME/bin/$selected"
+[[ -f $selected ]] || echo '#!/usr/bin/zsh' >> "$selected"
+alacritty --class vim,Alacritty -e vim "$selected"

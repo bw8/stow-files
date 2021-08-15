@@ -1,0 +1,5 @@
+#!/bin/bash
+#echo "${1#hola}"
+#while [ ! -z "$1" ];do
+#notify-send "$*"
+echo $1

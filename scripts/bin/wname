@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+xprop | awk '/WM_CLASS/{print $4}'

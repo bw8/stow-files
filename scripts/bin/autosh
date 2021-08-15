@@ -1,0 +1,13 @@
+#!/usr/bin/zsh
+
+FOLDER="$HOME/bin"
+FILE="$FOLDER/$1"
+
+if [[ -f $FILE ]]; then
+  #echo 'Script already exist'
+  alacritty --class vim,Alacritty -e vim "$FILE"
+else
+  echo '#!/usr/bin/zsh' > "$FILE"
+  chmod +x "$FILE"
+  alacritty --class vim,Alacritty -e vim "$FILE"
+fi

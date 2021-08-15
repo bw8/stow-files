@@ -1,0 +1,35 @@
+#!/bin/bash
+cmusfm "$*"
+#notify-send "$*"
+#notify-send 'NOW' 
+#status=$2
+filepath=$4
+dirpath="$(dirname "$filepath")"
+title=${16}
+artist=$6
+album=$8
+album=${10}
+discnumber=${12}
+tracknumber=${14}
+date=${14}
+#playerctl=$(music-status)
+icon="$(find "$dirpath" -name '*' -exec file {} \; | grep -o -P '^.+: \w+ image' | cut -d ":" -f 1)"
+
+#for i in {1..$#}
+#do 	
+#	case "$(echo "$i")" in
+#		status)
+#			status=${i+1}
+#			;;
+#
+#		*)	
+#	esac
+#
+#done
+
+
+
+notify-send --urgency=low --expire-time=3000 --category=music --icon="$icon" "$title"
+#notify-send --urgency=low --expire-time=3000 --category=music --icon="$icon" "1 ${#} + 2 ${2} + 3 ${3} + 4 ${4} + 5 ${5} + 6 ${6} + 7 ${7} + 8 ${8} 9 ${9} + 10 ${10} ${11} ${12} ${13} ${14} ${15} ${16} $*"
+#notify-send --urgency=low "$status"
+polybar-msg hook music 1

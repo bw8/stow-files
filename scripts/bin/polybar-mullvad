@@ -1,0 +1,16 @@
+#!/bin/zsh
+set -euo pipefail
+IFS=$'\n\t'
+
+MULLVAD_STATUS=$(mullvad status)
+
+if echo $MULLVAD_STATUS | grep -q 'Connected'; then
+  echo "VPN"
+  #echo "%{F$color5}%{F-}"
+ elif echo $MULLVAD_STATUS | grep -q 'Connecting'; then
+   echo ".."
+   #echo "%{F$color2}...%{F-}"
+ else
+  echo "NOPE"
+  #echo "%{F$color6}%{F-}"
+fi

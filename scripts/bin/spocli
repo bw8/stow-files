@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#pidof spotifyd || spotifyd & 
+systemctl --user start spotifyd
+alacritty --class spt -d 140 40 -e spt 
+systemctl --user stop spotifyd

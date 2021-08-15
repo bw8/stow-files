@@ -1,0 +1,15 @@
+#!/bin/bash
+
+mountable="$(lsblk -lp | grep "part $" | awk '{print $1, "(" $4 ")"}')"
+[[ "$mountable" = "" ]] && exit 
+chosen=$(echo "$mountable" | rofi -dmenu -e "Disks" | awk '{print $1}')
+[[ "$chosen" = "" ]] && exit 1
+sudo mount "$chosen" && exit 0
+dirs=$(find /mnt -type d -maxdepth 3 2>/dev/null)
+mountpoint=$(echo "$dirs" | rofi -dmenu -e "Mountpoint")
+[[ "$mountpoint" = "" ]] && exit  1
+if [[ ! -d "$mountpoint" ]]; then
+	mkdiryn=$(echo -e "No\nYes" | rofi -dmenu -e "Create $mountpoint")
+	[[ "$mkdiryn" = Yes ]] && sudo mkdir -p "$mountpoint"
+fi
+sudo mount $chosen $mountpoint && pgrep -x dunst  && notify-send "$chosen mounted on $mountpoint"

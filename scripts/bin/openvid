@@ -1,0 +1,10 @@
+#!/bin/bash
+
+targetvid="$1"
+
+if [[ -n $(pidof mpv) ]]; then
+	echo "loadfile \"${targetvid}\" append-play" > /tmp/mp_pipe
+else
+	[[ -f /tmp/mp_pipe ]] || mkfifo /tmp/mp_pipe
+	mpv --no-terminal --input-file="/tmp/mp_pipe" "$targetvid" &
+fi

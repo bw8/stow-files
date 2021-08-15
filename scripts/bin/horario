@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#evince ~/UGR/Horario2021.pdf
+#zathura --page=7 ~/UGR/Horario2021.pdf
+cat ~/UGR/Horario.txt

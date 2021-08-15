@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+wget -q -np -nc -P /tmp/imageboat/ $1
+sxiv /tmp/imageboat/$(basename $1)
+rm /tmp/imageboat/$(basename $1)

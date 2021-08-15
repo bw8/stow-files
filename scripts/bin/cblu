@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo -e "power on\nagent on\n" | bluetoothctl
+sleep 1
+#echo -e "connect E8:EC:A3:92:2D:6B\n" | bluetoothctl
+echo -e "connect E4:41:22:0A:2D:BE\n" | bluetoothctl
+

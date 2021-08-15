@@ -1,0 +1,6 @@
+#!/bin/bash
+
+kz=00:13:EF:A0:0A:09
+
+bluetoothctl
+connect 00:13:EF:A0:0A:09

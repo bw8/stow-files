@@ -1,0 +1,108 @@
+#!/usr/bin/bash
+# This script downloads an image link from the clipboard 
+# TODO: make posible to write path to save file
+# TODO: support to reddit galleries
+# TODO: support non reddit pages (wallhaven...)
+
+rofi_command="rofi -i -theme roffit.rasi "
+
+# Filter clipboard if there is no link to reddit post containing media to download
+link=$(xclip -selection c -o | grep -e "https://.*reddit.*/r/.*" )
+if [ -z "$link" ]; then
+    link=$(xclip -selection c -o | grep -e "https://.*" )
+    if [ -z "$link" ]; then
+        dunstify -u low "No link"
+        exit 1;
+    fi
+fi
+
+# Get information (thumbnail, image or video and subreddit)
+function fetch_info (){
+    json=$(curl -sH "User-agent: 'botijo'" "$link".json | jq '.')
+    if [[ -z "$json" ]]; then
+        dunstify "Where is Jason?"
+        exit 1
+    fi
+    thumb=$(echo "$json" | grep -m1 -oP '(?<="thumbnail": ").*\.[jpegnmif]{3,4}') 
+    image=$(echo "$json" | grep -m1 -oP '(?<="url_overridden_by_dest": ").*\.[jpegnmif]{3,4}') 
+    video=$(echo "$json" | grep -m1 -oP '(?<="fallback_url": ").*\.[mp4]+')
+    subr=$(echo "$json" | grep -m1 -oP '(?<="subreddit": ").*(?=",)') 
+    return 0
+}
+
+# Function to download image/gif or video depending wich var is empty (video/image)
+function download (){
+    if [[ -n "$video" ]]; then 
+        name=$(basename "$video")
+        wget -q -np -nc -P "$tmp_dir/$subr" "$video"
+    # elif [[ -n "$image" ]]; then
+    else
+        name=$(basename "$image")
+        wget -q -np -nc -P "$tmp_dir/$subr" "$image"
+    fi
+    return 0
+}
+
+fetch_info
+if [[ -n "$video" ]]; then 
+    name=$(basename "$video")
+elif [[ -n "$image" ]]; then 
+    name=$(basename "$image")
+else
+    dunstify "No media available"
+    exit 1;
+fi
+
+# tmp directory
+tmp_dir="/tmp/roffit"
+mkdir -p "$tmp_dir/$subr"
+
+# download thumbnail
+wget -q -np -nc -P "$tmp_dir" "$thumb"
+thumbname=$(basename "$thumb")
+
+# Options displayed by rofi
+option1="Save image to $subr directory"
+option2="Save image to img/dwn"
+option3="Save image and preview"
+option4="Preview image without saving"
+
+options="$option1\n$option2\n$option3\n$option4"
+download &
+
+# Show thumbnail using notification
+notid="$(dunstify -a "roffit" -i "$tmp_dir/$thumbname" -t 20000 -p "")"
+# Prompt menu to user
+chosen="$(echo -e "$options" | $rofi_command -dmenu )"
+
+# Close notification
+dunstify -C "$notid"
+case $chosen in
+    $option1)
+        # Save file inside subreddit directory
+        mkdir -p "$HOME/imgs/Boost/$subr"
+        mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
+        dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
+        ;;
+    $option2)
+        # Save file inside imgs/dwn directory
+        wget -q -np -nc -P "$HOME/imgs/dwn" "$link"
+        dunstify -i "$HOME/imgs/dwn/$name" "$name" "saved in imgs/dwn"
+        ;;
+    $option3)
+        # Save file inside subreddit directory and open it
+        mkdir -p "$HOME/imgs/Boost/$subr"
+        mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
+        sxiv -abfq "$HOME/imgs/Boost/$subr/$name" || \
+        mpv --loop --fs "$HOME/imgs/Boost/$subr/$name"
+        dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
+        ;;
+    $option4)
+        # Open it before remove it
+        sxiv -abfq "$tmp_dir/$subr/$name" || \
+        mpv --loop --fs "$tmp_dir/$subr/$name"
+        ;;
+esac
+
+# Remove all tmp files
+rm -rf $tmp_dir/*

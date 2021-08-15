@@ -1,0 +1,10 @@
+#!/bin/bash
+
+links=$HOME/msc/mpvlinks
+#curl https://www.youtube.com/watch\?v\=sQVqHD4L2tw | grep "<meta itemprop=\"name\" content=\"" | sed "s/<meta itemprop=\"name\" content=\"//" | sed "s/\">//g"
+title=$(sed "s/.*|\s//g" $links | rofi -dmenu -e "Video:" )
+[[ "$title" = "" ]] && exit 1
+titlelink=$(echo $title | grep -Ff - $links | awk '{print $1}')
+[[ "$titlelink" = "" ]] && exit 1
+mpv $titlelink
+
