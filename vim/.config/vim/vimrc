@@ -13,7 +13,8 @@ set nocompatible
 " and for  plugins that are filetype specific.
 " Identation
 filetype indent on
-set autoindent
+" set autoindent
+set smartindent
 
 " Use system clipboard
 " set clipboard=unnamedplus
@@ -29,7 +30,7 @@ set autoindent
 set number              " Show line number
 set relativenumber 
 
-set tabstop=8           " Set width of tabs
+set tabstop=4           " Set width of tabs
 set shiftwidth=4        " without actually
 set softtabstop=4       " change them set expandtab           " 
 set expandtab		" insert spaces instead of tabs unless CTRL+v is pressed
@@ -48,7 +49,7 @@ set path+=**
 " Display all matching files when we tab complete
 set wildmenu
 set showmatch
-set incsearch           " Highlight search results
+set incsearch           " Highlight search results as you type
 set smartcase           " case-insensitive search if only lowercase
 
 " Enable syntax highlighting
@@ -56,19 +57,57 @@ filetype plugin on
 syntax on
 au BufNewFile,BufRead /*.rasi setf css  " Syntax highlight for rofi files
 
-" set hlsearch " highlight all strings
-nnoremap <leader><space> :nohlsearch<CR>
+set hlsearch " highlight all strings
 
 set mouse=a             " double click on tags like CTRL-]
 
+let mapleader = " "     " map leader key
+
+" double tap space to hide highlighted search
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Move across windows
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+
+" Open explorer
+nnoremap <leader>f :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+
+" save and compile latex file
+nnoremap <leader>w :w<CR>:!pdflatex % &>/dev/null<CR><CR>
+
+" run command automaticaly after saving a .tex file
+" :autocmd BufWritePost *.tex !pdflatex <afile><CR>
+
+
+" Spelling check
+set spelllang=en,es_es
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
 let g:netrw_banner=0		            " disable annoying banner
 let g:netrw_browse_split=4	            " open in prior window
-let g:netrw_altv=1		            " open splitsto the right
+let g:netrw_altv=1		            " open splits to the right
 let g:netrw_liststyle=3 	            " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+" Skeletons
 nnoremap ,html :-1read $HOME/.config/vim/.skeleton.html<CR>3jwf>a
+nnoremap ,tex :-1read $HOME/.config/vim/skel/skel.tex<CR>3jf{a
 set makeprg=bundle\ exec\ rspec\ -f\ QuickfixFormatter
+
+" different background color for colorcolumn
+set colorcolumn=90
+highlight ColorColumn ctermbg=0
+
+" No swp files
+set noswapfile
+set nobackup
+set undodir=~/.config/vim/undodir
+set undofile
+
 
 "      _        _             _ _            
 "  ___| |_ __ _| |_ _   _ ___| (_)_ __   ___ 
