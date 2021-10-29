@@ -1,28 +1,47 @@
 @import "../colors.rasi"
-
-
-* {
-    background-color:       @background;
-    text-color:             @foreground;
-}
-
 window {
-    height:                 220px;
-    width:                  600px;
-    padding:                0px;
-    border:                 1px;
-    border-radius:          0px;
-    border-color:           @border;
     location:               northeast;
+    height:                 200px;
+    width:                  600px;
+    border:                 5px; 
+    border-color:           @dple;
     x-offset:               -25px;
-    y-offset:               50px;
-}
-
-
-inputbar {
-    enabled:                false;
+    y-offset:               50px; 
+    children:               [ box ];
 }
 
 box {
-    padding:                80px;
+    orientation:            horizontal;
+    children:   [ leftbox, imagebox ];
+}
+
+leftbox {
+    width: 400px;
+    expand:         false;
+    orientation: vertical;
+    children: [ prompt, listview ];
+}
+
+listview {
+    layout:     vertical;
+}
+
+
+prompt {
+    blink: true;
+    padding: 10px 40px;
+    text-color:     @dblu;
+}
+
+element-text {
+    text-color:             @dwit;
+}
+element.selected, element-text.selected, element-icon.selected {
+    text-color:             @lwit;
+    background-color:       @dblu;
+}
+
+imagebox {
+    width: 140px;
+    background-image: url("/tmp/roffit/thumb.jpg",both);
 }
