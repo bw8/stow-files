@@ -1,0 +1,146 @@
+@import "colors.rasi"
+/*
+• window
+    • overlay
+    • mainbox
+    • inputbar
+        • box
+        • case-indicator
+        • prompt
+        • entry
+        • num-rows
+        • num-filtered-rows
+    • listview
+        • scrollbar
+        • element
+        • element-icon
+        • element-index
+        • element-text
+    • mode-switcher: 
+        • button
+    • message
+        • textbox
+*/
+
+window {
+/*     enabled: */
+    padding: 10;
+/*     margin: */
+/*     border: */
+/*     border-radius: */
+/*     background-color: */
+/*     background-image: */
+/*     border-color: */
+/*     cursor: */
+
+/*     font: */
+/*     transparency: */
+/*     location: */
+/*     anchor: */
+/*     fullscreen: */
+/*     width: */
+/*     x-offset: */
+/*     y-offset: */ }
+
+/* inputbar { */
+/*    enabled: false;  */
+/* } */
+
+prompt {
+    enabled:    false; }
+
+scrollbar {
+/*     enabled: */
+/*     padding: */
+/*     margin: */
+/*     border: */
+/*     border-radius: */
+/*     background-color: */
+/*     background-image: */
+/*     border-color: */
+/*     cursor: */
+
+/*     background-color: */
+/*     handle-width: */
+/*     handle-color: */
+/*     border-color: */ }
+
+box {
+/*     enabled: */
+/*     padding: */
+/*     margin: */
+/*     border: */
+/*     border-radius: */
+/*     background-color: */
+/*     background-image: */
+/*     border-color: */
+/*     cursor: */
+
+/*     orientation: */
+/*     spacing: */
+}
+
+textbox {
+/*     enabled: */
+/*     padding: */
+/*     margin: */
+/*     border: */
+/*     border-radius: */
+/*     background-color: */
+/*     background-image: */
+/*     border-color: */
+/*     cursor: */
+
+/*     background-color: */
+/*     border-color: */
+/*     font: */
+/*     str: */
+/*     vertical-align: */
+/*     horizontal-align: */
+/*     highlight: */
+/*     width: */
+/*     content: */
+/*     placeholder: */
+/*     placeholder-color: */
+/*     blink: */
+/*     markup: */
+}
+
+
+listview {
+/*     enabled: */
+/*     padding: */
+/*     margin: */
+/*     border: */
+/*     border-radius: */
+/*     background-color: */
+/*     background-image: */
+/*     border-color: */
+/*     cursor: */
+
+/*     columns: */
+/*     fixed-height: */
+/*     dynamic: */
+/*     scrollbar: */
+/*     scrollbar-width: */
+/*     cycle: */
+/*     spacing: */
+/*     lines: */
+/*     layout: */
+/*     reverse: */
+/*     fixed-columns: */
+}
+
+element-text {
+/*     enabled: */
+/*     padding: */
+/*     margin: */
+/*     border: */
+/*     border-radius: */
+/*     background-color: */
+/*     background-image: */
+/*     border-color: */
+/*     cursor: */
+}
+
+
