@@ -24,7 +24,7 @@
 
 window {
 /*     enabled: */
-    padding: 10;
+    padding:                10;
 /*     margin: */
 /*     border: */
 /*     border-radius: */
@@ -47,7 +47,7 @@ window {
 /* } */
 
 prompt {
-    enabled:    false; }
+    enabled:                false; }
 
 scrollbar {
 /*     enabled: */
@@ -109,7 +109,7 @@ textbox {
 
 listview {
 /*     enabled: */
-/*     padding: */
+    padding:                10;
 /*     margin: */
 /*     border: */
 /*     border-radius: */
@@ -120,7 +120,7 @@ listview {
 
 /*     columns: */
 /*     fixed-height: */
-/*     dynamic: */
+/*     dynamic: true; */
 /*     scrollbar: */
 /*     scrollbar-width: */
 /*     cycle: */
@@ -132,12 +132,16 @@ listview {
 }
 
 element-text {
+    text-color:             @dwit; }
+
+element.selected, element-text.selected, element-icon.selected {
 /*     enabled: */
 /*     padding: */
 /*     margin: */
 /*     border: */
 /*     border-radius: */
-/*     background-color: */
+    text-color:             @lwit;
+    background-color:       @lblu;
 /*     background-image: */
 /*     border-color: */
 /*     cursor: */
