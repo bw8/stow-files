@@ -1,84 +1,89 @@
+/* Global color variables */
 * {
-    background: #0b1118;
-    foreground: #c0c1c1;
+    background:                 #0b1118;
+    foreground:                 #c0c1c1;
 
-    // dark & light BLACK
-    dblk: #0b1118;
-    lblk: #424547;
+    /* dark & light BLACK */
+    dblk:                       #0b1118;
+    lblk:                       #424547;
 
-    // dark & light RED
-    dred: #c51729;
-    lred: #f71c33;
+    /* dark & light RED */
+    dred:                       #c51729;
+    lred:                       #f71c33;
 
-    // dark & light GREEN
-    dgrn: #227b4b;
-    lgrn: #2EA564;
+    /* dark & light GREEN */
+    dgrn:                       #227b4b;
+    lgrn:                       #2EA564;
 
-    // dark & light YELLOW
-    dylw: #b96e37;
-    lylw: #F7934A;
+    /* dark & light YELLOW */
+    dylw:                       #b96e37;
+    lylw:                       #F7934A;
 
-    // dark & light BLUE
-    dblu: #701f24;
-    lblu: #962A30;
+    /* dark & light BLUE */
+    dblu:                       #701f24;
+    lblu:                       #962A30;
 
-    // dark & light PURPLE
-    dple: #0f5737;
-    lple: #126d45;
+    /* dark & light PURPLE */
+    dple:                       #0f5737;
+    lple:                       #126d45;
 
-    // dark & light CYAN
-    dcyn: #3eab84;
-    lcyn: #50ddaa;
+    /* dark & light CYAN */
+    dcyn:                       #3eab84;
+    lcyn:                       #50ddaa;
 
-    // dark & light WHITE
-    dwit: #818384;
-    lwit: #c0c1c1;
+    /* dark & light WHITE */
+    dwit:                       #818384;
+    lwit:                       #c0c1c1;
 
 
 
-    background-color: @background;
-    foreground-color: @background;
-    border-color: @background;
-    spacing: 2;
+    background-color:           @background;
+    foreground-color:           @foreground;
+    border-color:               @background;
+    spacing:                    2;
 
-    // ACTIVE
-    active-background: @dple;
-    active-foreground: @lwit;
+    /* ACTIVE */
+    active-background:          @dple;
+    active-foreground:          @lwit;
 
     selected-active-background: @dgrn;
     selected-active-foreground: @dblk;
 
-    // NORMAL
-    normal-background: @background;
-    normal-foreground: @foreground;
+    /* NORMAL */
+    normal-background:          @background;
+    normal-foreground:          @foreground;
 
     selected-normal-background: @dblu;
     selected-normal-foreground: @normal-foreground;
 
-    // URGENT
-    urgent-background: @dylw;
-    urgent-foreground: @foreground;
+    /* URGENT */
+    urgent-background:          @dylw;
+    urgent-foreground:          @foreground;
 
     selected-urgent-background: @lylw;
     selected-urgent-foreground: @dblk;
 
-    // Disable alternate colors
+    /* Disable alternate colors */
     alternate-active-background: @active-background;
     alternate-active-foreground: @active-foreground;
     alternate-normal-background: @normal-background;
     alternate-normal-foreground: @normal-foreground;
     alternate-urgent-background: @urgent-background;
     alternate-urgent-foreground: @urgent-foreground;
-
 }
 
 #window {
     background-color: @background;
-    border: 0;
+    width: 50%;
+    height: 75%;
+    fullscreen: false;
+    border: none;
     padding: 20;
 }
 
 #mainbox {
+    background-color: @background-color;
+    spacing: 0px;
     border: 0;
     padding: 0;
 }
@@ -91,6 +96,7 @@
 
 #textbox {
     text-color: @foreground;
+    background-color: #FF0000;
 }
 
 #inputbar {
@@ -105,6 +111,7 @@
 }
 
 #listview {
+    text-color: @foreground;
     fixed-height: 0;
     border: 2px 0px 0px;
     border-color: @border-color;
