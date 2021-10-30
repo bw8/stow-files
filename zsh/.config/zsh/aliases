@@ -25,11 +25,16 @@ alias mkdir='mkdir -pv'
 
 alias sxiv='sxiv -abfq'
 alias vim='vim -u $HOME/.config/vim/vimrc'
+alias r='ranger'
 
 # Adding color
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip --color=auto'
+
+# Git
+alias gits='git status'
+alias gitd='git diff'
 
 alias playerctl='playerctl --player=%any,mpv,firefox'
 
