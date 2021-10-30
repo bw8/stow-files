@@ -1,12 +1,12 @@
 @import "../colors.rasi"
 window {
-    location:               northeast;
+    location:               southeast;
     height:                 200px;
     width:                  600px;
     border:                 5px; 
     border-color:           @dple;
-    x-offset:               -25px;
-    y-offset:               50px; 
+    x-offset:               -50px;
+    y-offset:               -50px; 
     children:               [ box ];
 }
 
