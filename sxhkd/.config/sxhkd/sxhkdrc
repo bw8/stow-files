@@ -159,7 +159,7 @@ super + {bracketleft,bracketright,backslash}
 
 # Volume Mute (F1) Raise (F2) Lower (F3)
 @XF86Audio{Mute,RaiseVolume,LowerVolume}
-	pactl set-sink-{mute @DEFAULT_SINK@ toggle,volume @DEFAULT_SINK@ +1000,volume @DEFAULT_SINK@ -1000}
+	pactl set-sink-{mute @DEFAULT_SINK@ toggle,volume @DEFAULT_SINK@ +500,volume @DEFAULT_SINK@ -500}
 
 # Brightness Up (F11) Down (F12) TODO: optimize polybar update method
 @XF86MonBrightness{Up,Down}
