@@ -60,21 +60,18 @@ tmp_dir="/tmp/roffit"
 mkdir -p "$tmp_dir/$subr"
 
 # download thumbnail
-#wget -q -np -nc -P "$tmp_dir" "$thumb"
 wget -q -np -nc -P "$tmp_dir" "$thumb" -O "$tmp_dir/thumb.jpg"
 thumbname=$(basename "$thumb")
+download &
 
 # Options displayed by rofi
 option1="  $name"
-option2="   $name"
-option3="  $subr"
-option4="  ~/img/dwn"
+option2="  $subr"
+option3="  ~/img/dwn"
+option4="   $name"
 
-options="$option1\n$option2\n$option3\n$option4"
-download &
+options="$option1\n$option2\n$option3"
 
-# Show thumbnail using notification
-#notid="$(dunstify -a "roffit" -i "$tmp_dir/$thumbname" -t 20000 -p "")"
 # Prompt menu to user
 chosen="$(echo -e "$options" | $rofi_command -dmenu )"
 
@@ -83,27 +80,32 @@ chosen="$(echo -e "$options" | $rofi_command -dmenu )"
 case $chosen in
     $option1)
         # Open it before removing it
-        sxiv -abfq "$tmp_dir/$subr/$name" || \
+        save="$(sxiv -aobfq "$tmp_dir/$subr/$name")" || \
         mpv --loop --fs "$tmp_dir/$subr/$name"
+        # Mark to save image
+        if [[ -n "$save" ]]; then
+            mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
+            dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
+        fi
         ;;
     $option2)
+        # Save file inside subreddit directory
+        mkdir -p "$HOME/imgs/Boost/$subr"
+        mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
+        dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
+        ;;
+    $option3)
+        # Save file inside imgs/dwn directory
+        wget -q -np -nc -P "$HOME/imgs/dwn" "$link"
+        dunstify -i "$HOME/imgs/dwn/$name" "$name" "saved in imgs/dwn"
+        ;;
+    $option4)
         # Save file inside subreddit directory and open it
         mkdir -p "$HOME/imgs/Boost/$subr"
         mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
         sxiv -abfq "$HOME/imgs/Boost/$subr/$name" || \
         mpv --loop --fs "$HOME/imgs/Boost/$subr/$name"
         dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
-        ;;
-    $option3)
-        # Save file inside subreddit directory
-        mkdir -p "$HOME/imgs/Boost/$subr"
-        mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
-        dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
-        ;;
-    $option4)
-        # Save file inside imgs/dwn directory
-        wget -q -np -nc -P "$HOME/imgs/dwn" "$link"
-        dunstify -i "$HOME/imgs/dwn/$name" "$name" "saved in imgs/dwn"
         ;;
 esac
 
