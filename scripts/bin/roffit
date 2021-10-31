@@ -112,4 +112,4 @@ case $chosen in
 esac
 
 # Remove all tmp files
-#rm -rf $tmp_dir/*
+rm -rf $tmp_dir/*
