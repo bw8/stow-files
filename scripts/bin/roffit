@@ -84,6 +84,7 @@ case $chosen in
         mpv --loop --fs "$tmp_dir/$subr/$name"
         # Mark to save image
         if [[ -n "$save" ]]; then
+            mkdir -p "$HOME/imgs/Boost/$subr"
             mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
             dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
         fi
@@ -96,7 +97,8 @@ case $chosen in
         ;;
     $option3)
         # Save file inside imgs/dwn directory
-        wget -q -np -nc -P "$HOME/imgs/dwn" "$link"
+        # wget -q -np -nc -P "$HOME/imgs/dwn" "$link"
+        mv "$tmp_dir/$subr/$name" "$HOME/imgs/dwn/"
         dunstify -i "$HOME/imgs/dwn/$name" "$name" "saved in imgs/dwn"
         ;;
     $option4)
@@ -110,4 +112,4 @@ case $chosen in
 esac
 
 # Remove all tmp files
-rm -rf $tmp_dir/*
+#rm -rf $tmp_dir/*
