@@ -13,9 +13,9 @@ super + {_,shift +} Return
 
 # link2mpv (open clipboard link in mpv)
 super + {_,shift +} v
-	{link2mpv -q,link2mpv -n}
+	link2mpv {-q,-n}
 
-# link2img (get image from clipboard link and save in subreddit folder)
+# link2img (get link from clipboard and save image/video in subreddit folder)
 super + i
         roffit
 	#link2img -r
@@ -41,7 +41,7 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # Close and kill
-super + {_,shift + }w
+super + {_,shift +} w
 	bspc node -{c,k}
 
 # Alternate between the tiled and monocle layout
@@ -187,6 +187,15 @@ Print
 
 #======================================= OTHERS ==========================================
 #=========================================== =============================================
+# Dunst notifications
+
+# Close the topmost notification or all notifications holding shift
+super + {_,shift +} Delete
+        dunstctl {close, close-all}
+
+# Redisplay most recent closed notification or toggle notifications holding shift
+super + {_,shift +} Insert
+        dunstctl {history-pop, set-paused toggle}
 
 # look up word definitions TODO: find better keybind for my fingers health
 super + shift + F1
