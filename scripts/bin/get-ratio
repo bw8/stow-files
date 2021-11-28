@@ -1,0 +1,4 @@
+ #!/usr/bin/env bash
+import -window "$(xdotool getwindowfocus -f)" /tmp/file.png
+magick mogrify -fuzz 20% -trim +repage -format png /tmp/file.png
+change-ratio "$(identify -format "%w %h" /tmp/file.png)"
