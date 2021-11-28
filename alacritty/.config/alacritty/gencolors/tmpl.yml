@@ -42,6 +42,7 @@ colors:
 
   # Normal colors
   normal:
+    # black:   '#0e2628'    # color0
     black:   '%cl0%'    # color0
     red:     '%cl1%'    # color1
     green:   '%cl2%'    # color2
@@ -53,6 +54,7 @@ colors:
                                  
   # Bright colors                
   bright:                        
+    # black:   '#153d38'    # color8
     black:   '%cl8%'    # color8
     red:     '%cl9%'    # color9
     green:   '%cl10%'   # color10

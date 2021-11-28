@@ -39,10 +39,10 @@ colors:
     text: CellBackground
     background: CellForeground
 
-
   # Normal colors
   normal:
-    black:   '#0b1118'    # color0
+
+    black:   '#0e2628'    # color0
     red:     '#c51729'    # color1
     green:   '#227b4b'    # color2
     yellow:  '#b96e37'    # color3
@@ -53,7 +53,8 @@ colors:
                                  
   # Bright colors                
   bright:                        
-    black:   '#424547'    # color8
+
+    black:   '#153d38'    # color8
     red:     '#f71c33'    # color9
     green:   '#2EA564'   # color10
     yellow:  '#F7934A'   # color11
