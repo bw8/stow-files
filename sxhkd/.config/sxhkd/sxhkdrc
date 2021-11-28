@@ -88,7 +88,8 @@ super + {r, shift + r}
 
 # Change window focus
 super + Tab
-	bspc node -f last
+    bspc node -f next.local.leaf
+	#bspc node -f last
 
 # Focus the last node/desktop
 super + grave
@@ -133,6 +134,12 @@ super + shift + m
 # Rotate windows tree
 super + ctrl + {r,shift + r}
 	bspc node @/ -C {forward, backward}
+
+# Enter resize mode and resize using hjkl
+super + alt + space : {h,j,k,l}
+    STEP=20; SELECTION={1,2,3,4}; \
+    bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+    bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
 
 # Expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
