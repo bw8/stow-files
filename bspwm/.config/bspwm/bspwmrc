@@ -78,11 +78,11 @@ bspc config history_aware_focus         true
 
 #======================================== RULES ==========================================
 
-bspc rule -a Alacritty:\*			    state=pseudo_tiled      follow=on
-bspc rule -a Alacritty:float			    state=floating
+bspc rule -a Alacritty:\*                           state=pseudo_tiled      follow=on
+bspc rule -a Alacritty:float                        state=floating
 
-bspc rule -a firefox:\*				    state=floating
-bspc rule -a firefox:Navigator	    desktop='^2'    state=tiled
+bspc rule -a firefox:\*                             state=floating
+bspc rule -a firefox:Navigator      desktop='^2'    state=tiled
 bspc rule -a firefox:Toolkit                        state=pseudo_tiled
 
 bspc rule -a VSCodium               desktop='^3'    state=tiled             follow=on
@@ -91,28 +91,28 @@ bspc rule -a Zathura                                state=tiled             foll
 bspc rule -a Thunderbird:Mail       desktop='^6'    state=tiled
 bspc rule -a tutanota-desktop       desktop='^6'    state=pseudo_tiled
 
-bspc rule -a qBittorrent	    desktop='^7'	  
+bspc rule -a qBittorrent            desktop='^7'          
 bspc rule -a VirtualBoxVM:\*        desktop='^8'    state=pseudo_tiled      rectangle=1500x974+210+56
 bspc rule -a VirtualBox\ Manager:\*                 state=pseudo_tiled
 
 bspc rule -a Tor\ Browser:Navigator desktop='^8'    state=pseudo_tiled      rectangle=1500x974+210+56
 bspc rule -a Tor\ Browser:\*                        state=floating
 
-bspc rule -a Signal		    desktop='^9'    state=pseudo_tiled
-bspc rule -a TelegramDesktop	    desktop='^9'    state=pseudo_tiled
+bspc rule -a Signal                 desktop='^9'    state=pseudo_tiled
+bspc rule -a TelegramDesktop        desktop='^9'    state=pseudo_tiled
 bspc rule -a discord:discord        desktop='^9'    state=pseudo_tiled
 
-bspc rule -a \*:music		    desktop='^10'   state=pseudo_tiled      
-bspc rule -a Alacritty:spt	    desktop='^10'   state=pseudo_tiled      follow=on
-bspc rule -a Alacritty:cmus	    desktop='^10'   state=pseudo_tiled      follow=on
+bspc rule -a \*:music               desktop='^10'   state=pseudo_tiled      
+bspc rule -a Alacritty:spt          desktop='^10'   state=pseudo_tiled      follow=on
+bspc rule -a Alacritty:cmus         desktop='^10'   state=pseudo_tiled      follow=on
 
-bspc rule -a mpv				    state=pseudo_tiled
-bspc rule -a feh				    state=floating
-bspc rule -a Sxiv				    state=pseudo_tiled
+bspc rule -a mpv                                    state=pseudo_tiled
+bspc rule -a feh                                    state=floating
+bspc rule -a Sxiv                                   state=pseudo_tiled
 
 
 #====================================== AUTOSTART ========================================
-sleep 1
+#sleep 1
 
 # Redshift
 pgrep -x redshift > /dev/null || \
