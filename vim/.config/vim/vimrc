@@ -2,7 +2,7 @@
 " \ \ / / | '_ ` _ \| '__/ __|
 "  \ V /| | | | | | | | | (__ 
 "   \_/ |_|_| |_| |_|_|  \___|
-" ===========================================================================>
+"========================================================================================>
 "                             
 " Set 'nocompatible' to ward off unexpected things that your distro might
 " have made should have to live without.
@@ -25,7 +25,7 @@ set smartindent
 " | |  _ / _ \ '_ \ / _ \ '__/ _` | |
 " | |_| |  __/ | | |  __/ | | (_| | |
 "  \____|\___|_| |_|\___|_|  \__,_|_|
-" ======================================================================>
+"========================================================================================>
 
 set number              " Show line number
 set relativenumber 
@@ -55,12 +55,27 @@ set showmatch
 set incsearch           " Highlight search results as you type
 set smartcase           " case-insensitive search if only lowercase
 
+"====================================== Highlight ======================================="
+"========================================================================================"
+
 " Enable syntax highlighting
 filetype plugin on
 syntax on
 au BufNewFile,BufRead /*.rasi setf css  " Syntax highlight for rofi files
 
-set hlsearch " highlight all strings
+" Highlight all matching search strings
+set hlsearch
+
+" Highlight cursor line
+set cursorline          
+highlight CursorLine term=NONE cterm=bold ctermbg=0 ctermfg=NONE gui=NONE
+highlight CursorLineNR term=NONE cterm=bold ctermbg=0 ctermfg=11 gui=NONE
+
+" Highlight column number 90
+set colorcolumn=90
+highlight ColorColumn ctermbg=0
+
+"========================================================================================"
 
 set mouse=a             " double click on tags like CTRL-]
 
@@ -80,7 +95,7 @@ nnoremap <leader>f :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 
 " save and compile latex file
 "nnoremap <leader>w :w<CR>:!pdflatex % >/dev/null
-nnoremap <leader>w :autocmd BufWritePost *.tex !pdflatex <afile><CR>
+" nnoremap <leader>w :autocmd BufWritePost *.tex !pdflatex <afile><CR>
 
 " run command automaticaly after saving a .tex file
 " :autocmd BufWritePost *.tex !pdflatex <afile><CR>
@@ -102,10 +117,6 @@ nnoremap ,html :-1read $HOME/.config/vim/.skeleton.html<CR>3jwf>a
 nnoremap ,tex :-1read $HOME/.config/vim/skel/skel.tex<CR>3jf{a
 set makeprg=bundle\ exec\ rspec\ -f\ QuickfixFormatter
 
-" different background color for colorcolumn
-set colorcolumn=90
-highlight ColorColumn ctermbg=0
-
 " No swp files
 set noswapfile
 set nobackup
@@ -118,7 +129,7 @@ set undofile
 " / __| __/ _` | __| | | / __| | | '_ \ / _ \
 " \__ \ || (_| | |_| |_| \__ \ | | | | |  __/
 " |___/\__\__,_|\__|\__,_|___/_|_|_| |_|\___|
-" ===========================================================================>
+"========================================================================================>
 " source '~/.config/vim/statusline.vim'
 
 " let g:currentmode={
@@ -180,7 +191,7 @@ set undofile
 "  / _` | | '__| | | '_ \ / _ \
 " | (_| | | |  | | | | | |  __/
 "  \__,_|_|_|  |_|_|_| |_|\___|
-"                              
+"========================================================================================>
 
 let g:airline_theme='atomic'
 
