@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+# This is a script to hardlink downloaded movies/shows with deluge to jellyfin library
+
+hash="$1"
+torrent_name="$2"
+dwnpath="$3"
+label="$(basename "$dwnpath")"
+
+if [[ "$label" == "peliculas" ]]; then
+	moviedir="$(echo "$torrent_name" | grep -oP '.*\([0-9]{4}\)(?=.*\.mkv)')"
+	if [[ -d /home/sofia/jelly/$label/$moviedir ]]; then
+		echo "$moviedir already in library"
+	else
+		mkdir -p "/home/sofia/jelly/$label/$moviedir"
+		ln "$dwnpath/$torrent_name" "/home/sofia/jelly/$label/$moviedir"
+	fi
+elif [[ "$label" == "series" ]]; then
+	showdir="$(echo "$torrent_name" | grep -oP '.*\([0-9]{4}\)(?=.*)')"
+	season="$(echo "$torrent_name" | grep -oP '(?<=(S|T){1})[0-9]{1,2}')"
+	echo directory: "$showdir/Temporada $season" torrent: "$torrent_name"
+	mkdir -p "/home/sofia/jelly/$label/$showdir/Temporada $season"
+	ln "$dwnpath/$torrent_name/"* "/home/sofia/jelly/$label/$showdir/Temporada $season/"
+fi
