@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 # This is a script to hardlink downloaded movies/shows with deluge to jellyfin library
+# TODO: fix if no contain (year) ex Big mouth S04
 
 hash="$1"
 torrent_name="$2"
