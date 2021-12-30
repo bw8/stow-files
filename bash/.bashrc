@@ -51,7 +51,12 @@ PS1="${BOLD}${C1}\`nonzero_return\`${C1}[${C6}\u${C2}@${C5}\h${C2}:${C4}\w${C1}]
 
 # vi mode
 set -o vi
+
+# key bindings
+# check key bindings running 'bind -P'
 bind -m vi-insert 'Control-l: clear-screen'
+bind -m vi-insert 'Control-p: previous-history'
+bind -m vi-insert 'Control-n: next-history'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
