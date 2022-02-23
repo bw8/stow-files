@@ -1,0 +1,68 @@
+#!/usr/bin/bash
+
+decrypted="$(lsblk -l -o NAME,FSTYPE,MOUNTPOINT | grep 'redm2')"
+mountpoint="$(echo $decrypted | awk '{print $3}')"
+device="$(lsblk -l -o NAME,FSTYPE | grep 'crypto_LUKS' | awk '{print $1}')"
+
+
+function show_usage (){
+    printf "Usage: $0 [options [parameters]]\n"
+    printf "\n"
+    printf "Options:\n"
+    printf " -l|--list      List crypted devices\n"
+    printf " -m|--mount     Mount redm2 drive\n"
+    printf " -u|--umount    Umount redm2 drive\n"
+    return 0
+}
+
+function list_all (){
+    lsblk -l -o NAME,FSTYPE,MOUNTPOINT | grep 'redm2' || \
+    lsblk -l -o NAME,FSTYPE | grep 'crypto_LUKS'
+    #if [[ -n $decrypted ]]; then
+        #echo "$decrypted device decrypted"
+	    #sudo umount $mountpoint && sudo cryptsetup luksClose redm2
+        #echo "$mountpoint"
+	    #echo "$device unmounted and encrypted"
+    #else
+    #ksudo cryptsetup luksOpen /dev/$device redm2 && sudo mount /dev/mapper/redm2 /media/red
+    #echo "sudo cryptsetup luksOpen /dev/$device redm2 && sudo mount /dev/mapper/redm2 /media/red"
+    #echo "$device decrypted and mounted"
+    #fi
+}
+
+while [ ! -z "$1" ]; do
+    case "$1" in
+        -l|--list)
+            list_all
+            #echo $decrypted
+            #echo $mountpoint
+            #echo $device
+            exit 0
+            ;;
+        -m|--mount)
+            if [[ -z "$2"  ]]; then
+                mountpoint="/media/red"
+            else
+                mountpoint="$2"
+            fi
+            [[ ! -d "$mountpoint" ]] && echo -e "$mountpoint does not exists. Aborting." && exit 1
+            echo "decrypting $device and mounting on /media/red..."
+            sudo cryptsetup luksOpen /dev/$device redm2 && sudo mount /dev/mapper/redm2 /media/red
+            echo "Done"
+            exit 0
+            ;;
+        -u|--umount)
+            echo "umounting $mountpoint and encrypting $device..."
+            sudo umount $mountpoint && sudo cryptsetup luksClose redm2
+            echo "Done"
+            exit 0
+            ;;
+        *)
+            echo -e "Invalid command(s) $@"
+            echo ""
+            show_usage
+            exit 1
+    esac
+done
+
+show_usage
