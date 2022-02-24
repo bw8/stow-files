@@ -1,5 +1,5 @@
 #!/bin/bash
-# Dependencies: mpv youtube-dl wget curl notify-send* jq socat
+# Dependencies: mpv youtube-dl wget curl notify-send* jq socat xclip
 
 #link=$(xclip -selection c -o)
 #setsid -f mpv >/dev/null 2>&1 $link
@@ -10,10 +10,11 @@ function show_usage (){
     printf "Usage: $0 [options [parameters]]\n"
     printf "\n"
     printf "Options:\n"
-    printf " -h|--help	Print help\n"
-    printf " -n|--new	Open clipboard link on new mpv window\n"
-    printf " -q|--queue	Queue clipboard link to existing mpv window\n"
-    printf " -l|--link	Link provided by argument\n"
+    printf " -h|--help	    Print help.\n"
+    printf " -n|--new	    Open clipboard link on new mpv window.\n"
+    printf " -q|--queue	    Queue clipboard link to existing mpv window.\n"
+    printf " -l|--link	    Link provided by argument.\n"
+    printf " -r|--remote	Play/queue video in raspi.\n"
     return 0
 }
 
@@ -47,8 +48,9 @@ while [ ! -z "$1" ]; do
         -q|--queue)
             clip2link
             parse_info
-            if [[ -n $(pidof mpv) ]]; then 
+            if [[ -n $(pidof mpv) ]]; then
                 echo "loadfile \"${link}\" append-play" | socat - /tmp/mpv-ipc
+				echo '{ "command": ["set_property", "pause", false] }' | socat - /tmp/mpv-ipc
                 notify-send -u normal -t 3000 -a mpv "Queued.. " "$title $author" -i "/tmp/linker/$(basename $thumb)"
             else
                 setsid -f mpv >/dev/null 2>&1 "$link"
@@ -63,6 +65,24 @@ while [ ! -z "$1" ]; do
             notify-send -u normal -t 3000 -a mpv "Loading.. " "$title $author" -i "/tmp/linker/$(basename $thumb)"
             echo "Option in develop phase..."
             ;;
+        -r|--remote) # Send link to play in raspi over ssh
+            # check ssh connection to raspi
+            ssh raspi uptime
+            if [[ $? != 0 ]]; then
+                dunstify "Can't ssh to raspi"
+                exit 1
+            fi
+            clip2link
+            parse_info
+            # if already running queue video to playlist else play it
+            if [[ -n $(ssh raspi 'pidof mpv') ]]; then
+                echo "loadfile \"${link}\" append-play" | ssh raspi socat - /tmp/mpv-ipc
+                notify-send -u normal -t 3000 -a mpv "Raspi queued.. " "$title $author" -i "/tmp/linker/$(basename $thumb)" -h string:frcolor:\#50ddaa
+            else
+                setsid -f ssh raspi DISPLAY=:0 mpv "$link"
+                notify-send -u normal -t 3000 -a mpv "Raspi loading.. " "$title $author" -i "/tmp/linker/$(basename $thumb)" -h string:frcolor:\#50ddaa
+            fi
+            ;;
         *)
         echo "Error; Wrong input or something..."
         show_usage
@@ -70,11 +90,6 @@ while [ ! -z "$1" ]; do
 shift
 done
 
-
-#if [[ ! -n $(pidof mpv) ]] || [[ $1 == "-n" ]]; then 
-#elif [[ $1 == "-v" ]]; then
-	
-#else
-#fi
+# Remove thumnail
 rm /tmp/linker/$(basename $thumb 2>/dev/null) 2>/dev/null
 
