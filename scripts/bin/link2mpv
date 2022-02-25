@@ -53,7 +53,6 @@ while [ ! -z "$1" ]; do
 				percentaje=$( echo '{ "command": ["get_property", "percent-pos"] }' | socat - /tmp/mpv-ipc | grep -oP '(?<="data":).*(?=,"r)' )
 				if [[ "${percentaje:0:2}" -ge 99 ]]; then
 					echo '{ "command": ["set_property", "pause", false] }' | socat - /tmp/mpv-ipc
-					echo 'VIDEO ENDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD'
 				fi
                 notify-send -u normal -t 3000 -a mpv "Queued.. " "$percentaje | $title $author" -i "/tmp/linker/$(basename $thumb)"
             else
