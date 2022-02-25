@@ -50,8 +50,12 @@ while [ ! -z "$1" ]; do
             parse_info
             if [[ -n $(pidof mpv) ]]; then
                 echo "loadfile \"${link}\" append-play" | socat - /tmp/mpv-ipc
-				echo '{ "command": ["set_property", "pause", false] }' | socat - /tmp/mpv-ipc
-                notify-send -u normal -t 3000 -a mpv "Queued.. " "$title $author" -i "/tmp/linker/$(basename $thumb)"
+				percentaje=$( echo '{ "command": ["get_property", "percent-pos"] }' | socat - /tmp/mpv-ipc | grep -oP '(?<="data":).*(?=,"r)' )
+				if [[ "${percentaje:0:2}" -ge 99 ]]; then
+					echo '{ "command": ["set_property", "pause", false] }' | socat - /tmp/mpv-ipc
+					echo 'VIDEO ENDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD'
+				fi
+                notify-send -u normal -t 3000 -a mpv "Queued.. " "$percentaje | $title $author" -i "/tmp/linker/$(basename $thumb)"
             else
                 setsid -f mpv >/dev/null 2>&1 "$link"
                 notify-send -u normal -t 3000 -a mpv "Loading.. " "$title $author" -i "/tmp/linker/$(basename $thumb)"
