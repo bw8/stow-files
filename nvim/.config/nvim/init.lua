@@ -6,88 +6,65 @@
 --
 -- Comments with --* at the end are neovim defaults
 
--- vim.o.autoindent = true --
-vim.o.smartindent = true
+require('keybinds')
+require('packages')
+require('treesitter')
+require('lsp')
+require('completion')
 
+-- vim.opt.autoindent = true -- vim.opt.smartindent = true
 
 -- -------------------- General --------------------
 -- Show line number (relative)
-vim.o.number =			true
-vim.o.relativenumber =	true
+vim.opt.number =			true
+vim.opt.relativenumber =	true
 
-vim.o.wrap =			false
+vim.opt.wrap =			false
 
-vim.o.tabstop =			4		-- Set width of tabs
-vim.o.shiftwidth =		4		-- without actually
-vim.o.softtabstop =		4		-- change the set expandtab
-vim.o.expandtab =		false	-- insert spaces instead of tabs
-vim.o.shiftround =		true	-- round indent to a multiple of shiftwidth
+vim.opt.tabstop =			4		-- Set width of tabs
+vim.opt.shiftwidth =		4		-- without actually
+vim.opt.softtabstop =		4		-- change the set expandtab
+vim.opt.expandtab =			true	-- insert spaces instead of tabs
+vim.opt.shiftround =		true	-- round indent to a multiple of shiftwidth
 
-vim.o.showcmd =			true    --* Show (partial) command in the last line
--- vim.o.history =		1000	--* Save last N :cmdline commands
-vim.o.showmode =		true	-- Show current mode at bottom
--- vim.o.autoread =		true	-- Reload files changed outside
+vim.opt.showcmd =			true    --* Show (partial) command in the last line
+-- vim.opt.history =		1000	--* Save last N :cmdline commands
+vim.opt.showmode =		true	-- Show current mode at bottom
+-- vim.opt.autoread =		true	-- Reload files changed outside
 
-vim.o.scrolloff =		4		-- Start scrolling 4 lines before edge
+vim.opt.scrolloff =		4		-- Start scrolling 4 lines before edge
 
 -- Search down into subfolders
 -- Provides tab-completion for all file-related tasks
 -- TODO: local pth = { '**' }
--- vim.opt.path = vim.o.path + '**'
+-- vim.opt.t.path = vim.o.path + '**'
 -- vim.cmd ('path += "**"')
 
 -- Display all matching files when we tab complete
-vim.o.wildmenu =		true	--* Enhanced mode of command-line completion
-vim.o.showmatch =		true
-vim.o.incsearch =		true	--* Highlight search results while typing
-vim.o.smartcase =		true	-- case-insensitive search if only lowercase
+vim.opt.wildmenu =		true	--* Enhanced mode of command-line completion
+vim.opt.showmatch =		true
+vim.opt.incsearch =		true	--* Highlight search results while typing
+vim.opt.smartcase =		true	-- case-insensitive search if only lowercase
 
 -- -------------------- Highlight --------------------
-vim.cmd('filetype plugin on')
---vim.o.filetype = "plugin on"
-vim.o.syntax =			"on"    -- Enable syntax highlighting
+-- vim.opt.syntax =			"on"    -- Enable syntax highlighting
 
 -- vim.cmd('au BufNewFile,BurRead /*.rasi setf css')   -- Rofi syntax highlight
 
-vim.o.hlsearch =		true	--*
+vim.opt.hlsearch =		true	--*
 
 -- --------------- Highlight cursor line ---------------
-vim.o.cursorline = true
+vim.opt.cursorline = true
 vim.cmd("hi CursorLine term=NONE cterm=bold ctermbg=0 ctermfg=NONE gui=NONE")
 vim.cmd("hi CursorLineNR term=NONE cterm=bold ctermbg=0 ctermfg=11 gui=NONE")
+
 -- --------------- Highlight column number ---------------
-vim.o.colorcolumn = "90"
+vim.opt.colorcolumn = "90"
 vim.cmd("hi ColorColumn ctermbg=0")
 
--- -------------------- Keybinds --------------------
--- Map leader key to space
-vim.g.mapleader = ' '
-
--- Keymaps
--- vim.api.nvim_set_keymap({mode}, {keymap}, {mapped to}, {options})
-local keymap = vim.api.nvim_set_keymap
-local opts = { noremap = true }
-
--- Move across windows
-keymap('n', '<leader>h', ':wincmd h<CR>', opts)
-keymap('n', '<leader>j', ':wincmd j<CR>', opts)
-keymap('n', '<leader>k', ':wincmd k<CR>', opts)
-keymap('n', '<leader>l', ':wincmd l<CR>', opts)
-
--- Open explorer
-keymap('n', '<leader>f', ':wincmd v<bar> :Ex <bar> :vertical resize 30<CR>', opts)
-
 -- -------------------- Spell check --------------------
-vim.o.spelllang = "en,es_es"        -- Set languages
-keymap('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', opts) -- <C-l> to correct word
+vim.opt.spelllang = "en,es_es"        -- Set languages for spelling
 
--- -------------------- Skeletons --------------------
-keymap('n', ',html', ':-1read $HOME/.config/nvim/skel/skel.tex', opts)
-keymap('n', ',md', ':0read $HOME/.config/nvim/skel/skel.md<CR>j$i', opts)
-
--- -------------------- --------------------
+-- -------------------- Lil tweaks --------------------
 -- Remove any trailing spaces before writing a file.
-vim.api.nvim_exec([[
-autocmd BufWritePre * %s/\s\+$//e
-]], true)
-
+vim.api.nvim_exec([[ autocmd BufWritePre * %s/\s\+$//e ]], true)
