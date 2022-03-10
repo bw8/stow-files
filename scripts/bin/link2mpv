@@ -95,4 +95,3 @@ done
 
 # Remove thumnail
 rm /tmp/linker/$(basename $thumb 2>/dev/null) 2>/dev/null
-
