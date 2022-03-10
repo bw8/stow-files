@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-# This script downloads an image link from the clipboard 
+# This script downloads an image link from the clipboard
 # TODO: make posible to write path to save file
 # TODO: support to reddit galleries
 # TODO: support non reddit pages (wallhaven...)
@@ -23,16 +23,16 @@ function fetch_info (){
         dunstify "Where is Jason?"
         exit 1
     fi
-    thumb=$(echo "$json" | grep -m1 -oP '(?<="thumbnail": ").*\.[jpegnmif]{3,4}') 
-    image=$(echo "$json" | grep -m1 -oP '(?<="url_overridden_by_dest": ").*\.[jpegnmif]{3,4}') 
+    thumb=$(echo "$json" | grep -m1 -oP '(?<="thumbnail": ").*\.[jpegnmif]{3,4}')
+    image=$(echo "$json" | grep -m1 -oP '(?<="url_overridden_by_dest": ").*\.[jpegnmif]{3,4}')
     video=$(echo "$json" | grep -m1 -oP '(?<="fallback_url": ").*\.[mp4]+')
-    subr=$(echo "$json" | grep -m1 -oP '(?<="subreddit": ").*(?=",)') 
+    subr=$(echo "$json" | grep -m1 -oP '(?<="subreddit": ").*(?=",)')
     return 0
 }
 
 # Function to download image/gif or video depending wich var is empty (video/image)
 function download (){
-    if [[ -n "$video" ]]; then 
+    if [[ -n "$video" ]]; then
         name=$(basename "$video")
         wget -q -np -nc -P "$tmp_dir/$subr" "$video"
     # elif [[ -n "$image" ]]; then
@@ -44,10 +44,10 @@ function download (){
 }
 
 fetch_info
-if [[ -n "$video" ]]; then 
+if [[ -n "$video" ]]; then
     rofi_command="$rofi_command -p "
     name=$(basename "$video")
-elif [[ -n "$image" ]]; then 
+elif [[ -n "$image" ]]; then
     rofi_command="$rofi_command -p "
     name=$(basename "$image")
 else
@@ -62,11 +62,10 @@ mkdir -p "$tmp_dir/$subr"
 # download thumbnail
 wget -q -np -nc -P "$tmp_dir" "$thumb" -O "$tmp_dir/thumb.jpg"
 thumbname=$(basename "$thumb")
-download &
 
 # Options displayed by rofi
-option1="  $name"
-option2="  $subr"
+option1="  $subr"
+option2="  $name"
 option3="  ~/img/dwn"
 option4="   $name"
 
@@ -79,6 +78,14 @@ chosen="$(echo -e "$options" | $rofi_command -dmenu )"
 #dunstify -C "$notid"
 case $chosen in
     $option1)
+        download
+        # Save file inside subreddit directory
+        [[ ! -d "$HOME/imgs/Boost/$subr" ]] || mkdir -p "$HOME/imgs/Boost/$subr"
+        mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
+        dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
+        ;;
+    $option2)
+        download
         # Open it before removing it
         save="$(sxiv -aobfq "$tmp_dir/$subr/$name")" || \
         mpv --loop --fs "$tmp_dir/$subr/$name"
@@ -89,19 +96,15 @@ case $chosen in
             dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
         fi
         ;;
-    $option2)
-        # Save file inside subreddit directory
-        mkdir -p "$HOME/imgs/Boost/$subr"
-        mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
-        dunstify -i "$HOME/imgs/Boost/$subr/$name" "$name" "saved from r/$subr"
-        ;;
     $option3)
+        download
         # Save file inside imgs/dwn directory
         # wget -q -np -nc -P "$HOME/imgs/dwn" "$link"
         mv "$tmp_dir/$subr/$name" "$HOME/imgs/dwn/"
         dunstify -i "$HOME/imgs/dwn/$name" "$name" "saved in imgs/dwn"
         ;;
     $option4)
+        download
         # Save file inside subreddit directory and open it
         mkdir -p "$HOME/imgs/Boost/$subr"
         mv "$tmp_dir/$subr/$name" "$HOME/imgs/Boost/$subr"
