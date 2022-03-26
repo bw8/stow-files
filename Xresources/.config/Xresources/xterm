@@ -1,0 +1,14 @@
+XTerm.termName: xterm-256color
+
+! Scrolling
+! XTerm.vt100.saveLines: 4096
+
+! Font
+xterm*faceName: Inconsolata Nerd Font Mono
+xterm*faceSize: 16
+xterm*renderFont: true
+
+
+! Key bindings
+! XTerm.vt100.translations: #override \n\
+!     Ctrl <Key>R: restore()
