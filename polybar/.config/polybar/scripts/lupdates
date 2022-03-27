@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#alacritty -e "sudo pacman -Syu"
+alacritty -e "yay"

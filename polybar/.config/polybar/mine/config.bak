@@ -1,0 +1,316 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = ${xrdb:color0:#222}
+background-alt = ${xrdb:color8:#444}
+foreground = ${xrdb:color7:#222}
+foreground-alt = ${xrdb:color7:#555}
+primary = ${xrdb:color4:#ffb52a}
+secondary = ${xrdb:color6:#fff}
+alert = ${xrdb:color1:#bd2c40}
+
+red = ${xrdb:color1:#ff5c57}
+green = ${xrdb:color2:#5af78e}
+yellow = ${xrdb:color3:#f3f99d}
+blue = ${xrdb:color4:#57c7ff}
+magenta = ${xrdb:color5:#ff6ac1}
+cyan = ${xrdb:color6:#9aedfe}
+black = ${xrdb:color0:#020307}
+darkgrey = ${xrdb:color8:#0f0f0f}
+lightgrey = ${xrdb:color7:#f1f1f0}
+white = ${xrdb:color15:#eff0eb}
+
+[bar/base]
+width = 100%
+height = 20
+fixedcenter = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+padding-left = 0
+padding-right = 1
+
+module-margin-left = 1
+module-margin-right = 0
+
+font-0 = FiraCode NF:pixelsize=10;
+font-1 = siji:pixelsize=10;
+font-2 = CaskaydiaCove Nerd Font:pixelsize=10;
+font-3 = FuraCode Nerd Font:pixelsize=10;
+font-4 = CodeNewRoman NF:pixelsize=10;
+
+override-redirect = true
+wm-restack = bspwm
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/mydesktopbar]
+inherit = bar/base
+monitor = eDP-1
+modules-left = bspwm xwindow
+modules-center = date
+modules-right = date
+
+[bar/mybar]
+inherit = bar/base
+modules-left = bspwm xwindow
+modules-center = xbacklight date alsa
+modules-right = wlan eth battery0 battery1 powermenu
+
+[module/bluetooth]
+type = custom/script
+exec = "~/scripts/system-bluetooth-bluetoothctl"
+tail = true
+click-left = ~/scripts/system-bluetooth-bluetoothctl --toggle &
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/bspwm]
+type = internal/bspwm
+
+ws-icon-0 = I;"1"
+ws-icon-0 = I;""
+ws-icon-0 = I;""
+ws-icon-0 = I;"4"
+ws-icon-0 = I;"5"
+ws-icon-default = ♟
+
+format = <label-state> <label-mode>
+
+;label-focused = @
+;label-occupied = 
+;label-urgent = 
+;label-empty = 
+
+;label-focused-foreground = ${colors.primary}
+;label-focused-padding = 1
+
+;label-occupied-foreground = ${colors.foreground-alt}
+;label-occupied-padding = 1
+
+;label-urgent-background = ${colors.alert}
+;label-urgent-padding = 1
+
+;label-empty-foreground = ${colors.foreground-alt}
+;label-empty-padding = 1
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <bar>
+
+bar-width = 10
+bar-indicator = 
+bar-indicator-foreground = #fff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = ${colors.blue}
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+[module/wland]
+inherit = module/wlan
+interface = wlp9s0f3u2
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected = %{A1:~/scripts/networkmanager_dmenu:} <ramp-signal> <label-connected> %{A}
+label-connected = %essid%
+
+format-disconnected = %{A1:~/scripts/networkmanager_dmenu:} No Wifi %{A}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/ethd]
+inherit = module/eth
+interface = enp3s0
+
+[module/eth]
+type = internal/network
+interface = enp0s25
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %local_ip%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 1.0
+
+time =  %I:%M %p
+time-alt =  %H:%M:%S
+date =
+date-alt =  %Y-%m-%d
+
+label = %date% %time%
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <bar-volume>
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.darkgrey}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = ${colors.green}
+bar-volume-foreground-1 = ${colors.green}
+bar-volume-foreground-2 = ${colors.green}
+bar-volume-foreground-3 = ${colors.green}
+bar-volume-foreground-4 = ${colors.green}
+bar-volume-foreground-5 = ${colors.green}
+bar-volume-foreground-6 = ${colors.green}
+bar-volume-foreground-7 = ${colors.green}
+bar-volume-foreground-8 = ${colors.green}
+bar-volume-foreground-9 = ${colors.green}
+bar-volume-gradient = false
+bar-volume-indicator = 
+bar-volume-indicator-font = 1
+bar-volume-fill = ─
+bar-volume-fill-font = 0
+bar-volume-empty = ─
+bar-volume-empty-font = 0
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/battery]
+type = internal/battery
+
+adapter = AC
+
+poll-interval = 2
+time-format = %H:%M
+
+format-charging = <animation-charging> <label-charging>
+format-charging-background = ${colors.background}
+format-charging-foreground = ${colors.foreground}
+format-charging-padding = 1
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-padding = 1
+
+label-charging = +%percentage%%
+label-discharging = %percentage%%
+
+label-full = " FULL"
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-5 = 
+animation-charging-6 = 
+animation-charging-7 = 
+animation-charging-8 = 
+animation-charging-framerate = 750
+
+[module/battery0]
+inherit = module/battery
+battery = BAT0
+full-at = 96
+
+[module/battery1]
+inherit = module/battery
+battery = BAT1
+full-at = 96
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+menu-0-2 = suspend
+menu-0-2-exec = menu-open-3
+
+menu-1-0 = back
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = systemctl reboot
+
+menu-2-0 = back
+menu-2-0-exec = menu-open-0
+menu-2-1 = power off
+menu-2-1-exec = systemctl poweroff
+
+menu-3-0 = suspend
+menu-3-0-exec = systemctl suspend
+menu-3-1 = back
+menu-3-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+; vim:ft=dosini
