@@ -1,13 +1,17 @@
-XTerm.termName: xterm-256color
+! Window dimensions
+xterm*geometry: 160x40
 
-! Scrolling
-! XTerm.vt100.saveLines: 4096
+! Set TERM
+xterm.termName: xterm-256color
 
 ! Font
 xterm*faceName: Inconsolata Nerd Font Mono
 xterm*faceSize: 16
 xterm*renderFont: true
 
+! Alt key
+xterm*eightBitInput: false
+xterm*eightBitOutput: true
 
 ! Key bindings
 ! XTerm.vt100.translations: #override \n\
