@@ -101,7 +101,7 @@ plugins=(
         ssh-agent
         )
 
-zstyle :omz:plugins:ssh-agent identities ~/.ssh/ugr_ed25519
+zstyle :omz:plugins:ssh-agent identities ~/.ssh/{ugr_ed25519,bwz8,id_rsa}
 source $ZSH/oh-my-zsh.sh
 
 

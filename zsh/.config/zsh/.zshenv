@@ -1,4 +1,4 @@
-# Add this lines to "/etc/zsh/zshenv" 
+# Add this lines to "/etc/zsh/zshenv"
 # export ZDOTDIR="$HOME/.config/zsh"
 # export HISTFILE="$ZDOTDIR/.zsh_history"
 #
@@ -7,9 +7,10 @@
 #        #        ${          :P  }   Get realpath (man zshexpn)
 #        #          ${(%):-  }        Enable prompt expansion (man zshexpn zshmisc)
 #        #          ${     %x}        Name of file containing this line (man zshmisc)
-source $ZDOTDIR/aliases
 
-# export XDG_CONFIG_HOME
+source $HOME/.config/aliases
+
+#export XDG_CONFIG_HOME="~/.config"
 #export ZDOTDIR="/home/bw8/.config/zsh"
 export ZDIR="$ZDOTDIR"
 export ZENV="$ZDOTDIR/.zshenv"
@@ -19,24 +20,45 @@ export CONFIG_DIR="$HOME/.config"
 export GNUPGHOME="$CONFIG_DIR/gnupg"
 export PASSWORD_STORE_DIR="$HOME/.local/share/passwds"
 
-export PATH=$PATH:"/home/bw8/.scripts"
-export PATH=$PATH:"/home/bw8/bin"
-export PATH="${PATH}:${HOME}/.local/bin"
-export PATH="${PATH}:${HOME}/.config/polybar/scripts"
 
+# ==================== PATH ====================
+
+if [ -d "$HOME/bin" ] ; then
+	export PATH="${PATH}:${HOME}/bin"
+fi
+
+if [ -d "$HOME/.local/bin" ] ; then
+	export PATH="${PATH}:${HOME}/.local/bin"
+fi
+
+if [ -d "$HOME/.config/polybar/scripts/" ]; then
+	export PATH="${PATH}:${HOME}/.config/polybar/scripts"
+fi
+
+if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
+	 export PATH="$HOME/adb-fastboot/platform-tools:$PATH"
+fi
+
+if [ -d "$HOME/.cargo/bin" ] ; then
+	export PATH=$PATH:"/home/bw8/.cargo/bin"
+fi
 
 #export LC_TIME=es_ES
 
+# ==================== DEFAULT PROGRAMS ====================
 export BROWSER='firefox'
-export EDITOR='vim'
+export VISUAL='nvim'
+export EDITOR='nvim'
+export TERMINAL='alacritty'
 
 export VIM_LATEX_FOLDER="$HOME/docs/latex"
 export VIM_LATEX_TEMPLATE_DIR="$VIM_LATEX_FOLDER/templates"
 export VIM_LATEX_OUTPUT="/tmp"
 export VIM_LATEX_DOC="output"
 
+export PAGER='bat'
+
 # Set vim to default pager in man-pages
-#export PAGER='env MAN_PN=1 vim -M +MANPAGER -'
 # export MANPAGER='vim -M +MANPAGER -'
 # export MANPAGER="vim -M +MANPAGER -c 'set ft=man ts=8 nomod nolist nonu noma' -"
 export MANPAGER='vim -c "%! col -b" -c MANPAGER -c "set ft=man ts=8 nomod nolist nonu nornu noma " - '
@@ -55,24 +77,13 @@ export MANPAGER='vim -c "%! col -b" -c MANPAGER -c "set ft=man ts=8 nomod nolist
 
 
 
-#fix for nmcli (ANSI escape sequences colors) 
-export PAGER='less'
-
-if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
-	 export PATH="$HOME/adb-fastboot/platform-tools:$PATH"
-fi
-
-if [ -d "$HOME/home/bw8/.cargo/bin" ] ; then
-	export PATH=$PATH:"/home/bw8/.cargo/bin"
-fi
-
 # export MYVIMRC
-export VIMINIT='source $MYVIMRC'
-export MYVIMRC='/home/bw8/.config/vim/vimrc'
-set viminfo+=n/home/bw8/.config/vim/viminfo
+#export VIMINIT='source $MYVIMRC'
+#export MYVIMRC='/home/bw8/.config/vim/vimrc'
+#set viminfo+=n/home/bw8/.config/vim/viminfo
 
 # export RANGER
-export RANGER_LOAD_DEFAULT_RC=false
+#export RANGER_LOAD_DEFAULT_RC=false
 #export RANGER_LOAD_DEFAULT_RC="$HOME/.config/ranger/rc.conf"
 
 # Env variable colors from Xresources
@@ -84,12 +95,9 @@ source "/home/bw8/.config/colors/colors.sh"
 # export BW_CLIENTID="$(gpg -q --for-your-eyes-only --no-tty -d $PASSWORD_STORE_DIR/bw/id.gpg)"
 # export BW_CLIENTSECRET="$(gpg -q --for-your-eyes-only --no-tty -d $PASSWORD_STORE_DIR/bw/secret.gpg)"
 
-# WINE
-#export WINEPREFIX="/home/bw8/.config/wine"
-
 # TTRV
 #export MAILCAPS="/home/bw8/.config/ttrv/mailcap"
 #export TTRV_URLVIEWER="urlscan"
 
 # DOTFILES
-export DOTFILES_DIR="/home/bw8/dotfiles"
+#export DOTFILES_DIR="~/dotfiles"

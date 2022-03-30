@@ -1,0 +1,15 @@
+#compdef redm2
+
+    #_arguments "1:*:( World yeaahh)"
+
+_redm2(){
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments -C \
+        '--version[get version]:' \
+        '(-): :->command' \
+        '(-):: :->arguments'
+}
+
+_redm2 "$@"
