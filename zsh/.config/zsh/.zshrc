@@ -1,142 +1,75 @@
+#============================================#
+#          _               #                 #
+#  _______| |__  _ __ ___  # 2021-03-30      #
+# |_  / __| '_ \| '__/ __| # v0.9.1          #
+#  / /\__ \ | | | | | (__  #                 #
+# /___|___/_| |_|_|  \___| # bw8             #
+#============================================#
+# Dependencies: starship
+
+# Enable colors and change prompt
+autoload -U colors && colors
+
+# History in cache directory:
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.cache/zsh/history
+
+# Tab completion
+autoload -U compinit    # Initialize the completion
+zstyle ':completion:*' menu select # Enable navigation in completion menu
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' # Case-insesitive completion
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Display colors
+zmodload zsh/complist
+compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION # Zcompdump in cache directory
+_comp_options+=(globdots) # Include .files in completion
+
+# Completion in cache directory:
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.cache/zsh/completion
+
 #
-#                    ██
-#                   ░██
-#     ██████  ██████░██
-#    ░░░░██  ██░░░░ ░██████
-#       ██  ░░█████ ░██░░░██
-#      ██    ░░░░░██░██  ░██
-#     ██████ ██████ ░██  ░██
-#    ░░░░░░ ░░░░░░  ░░   ░░
+xdvi() { command xdvi ${*:-*.dvi(om[1])} }
+zstyle ':completion:*:*:xdvi:*' menu yes select
+zstyle ':completion:*:*:xdvi:*' file-sort time
 
-# Enable Powerlevel10k instant prompt.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Path to your oh-my-zsh installation.
-export ZSH="/home/bw8/.config/zsh/oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=10
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# COMPLETION
-#fpath=($ZDOTDIR/completion $fpath)
-FPATH=$ZDOTDIR/completion:$FPATH
-FPATH=/usr/local/share/zsh/site-functions:$FPATH
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-  HIST_STAMPS="yyyy-mm-dd"
-
-  HISTSIZE='100000'
-
-# Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=/usr/share/zsh
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-        #git
-        zsh-completions
-        zsh-syntax-highlighting
-        zsh-autosuggestions
-        #colorize
-        command-not-found
-        #cp
-        compleat
-        vi-mode
-        # zsh-vimode-visual
-        #torrent
-        #battery
-        #extract
-        # dogesay
-        ssh-agent
-        )
-
-zstyle :omz:plugins:ssh-agent identities ~/.ssh/{ugr_ed25519,bwz8,id_rsa}
-source $ZSH/oh-my-zsh.sh
+# Completing process IDs
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
 
 
-# User configuration
+# Vi mode
+bindkey -v
+export KEYTIMEOUT=1
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -v '^?' backward-delete-char
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# Use ranger to switch directories and bind it to ctrl-f
+rcd () {
+	tmp="$(mktemp)"
+	ranger --choosedir="$tmp" "$@"
+	if [ -f "$tmp" ]; then
+		dir="$(cat "$tmp")"
+		rm -f "$tmp"
+		[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+	fi
+}
+bindkey -s '^f' 'rcd\n'
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Edit command in vim  with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# ALIASES
+[[ -f ~/.config/aliases ]] && source ~/.config/aliases
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-#source $ZDOTDIR/aliases
-# sourced in zshenv for sxhkd to use them
+# Load zsh-syntax-highlighting: should be last.
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-#source $HOME/.config/zsh/.aliases
-set -o vi
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+# STARSHIP PROMPT
+eval "$(starship init zsh)"
