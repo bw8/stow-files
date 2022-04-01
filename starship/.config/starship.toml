@@ -1,0 +1,143 @@
+#=======================================#
+#      _                 _     _        #
+#  ___| |_ __ _ _ __ ___| |__ (_)_ __   #
+# / __| __/ _` | '__/ __| '_ \| | '_ \  #
+# \__ \ || (_| | |  \__ \ | | | | |_) | #
+# |___/\__\__,_|_|  |___/_| |_|_| .__/  #
+#                               |_|     #
+#=======================================#
+
+# Format of the prompt
+format = """
+$battery\
+$username\
+$hostname\
+$env_var\
+$directory\
+$cmd_duration
+$sudo\
+$jobs\
+$time\
+$status\
+$shell\
+$character"""
+
+# Wait 10 ms to check files under current directory
+scan_timeout = 10
+
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# Continuation prompt
+continuation_prompt = "[▶▶ ](green)"
+
+# Modules
+[battery]
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = " "
+format = "[$symbol]($style)"
+
+[[battery.display]]
+threshold = 15
+style = "bold red"
+
+[character]
+success_symbol = "[└─ ❯](purple)"
+error_symbol = "[└─ ❯](red)"
+vicmd_symbol = "[└─ ](bright-green)"
+
+[cmd_duration]
+min_time = 500
+show_milliseconds = true
+format = "[祥$duration]($style)"
+style = "bright-black"
+show_notifications = false
+min_time_to_notify = 300000
+
+[directory]
+truncation_length = 8
+truncate_to_repo = false
+format = "[:](bold yellow)[$path]($style) [$read_only]($read_only_style)"
+style = "blue"
+read_only = ""
+read_only_style = "yellow"
+truncation_symbol = "../"
+#repo_root_style = ""
+repo_root_format = "[$before_root_path]($style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
+home_symbol = "~"
+
+[directory.substitutions]
+"~/imgs" = "IMGS"
+fish_style_pwd_dir_length = "1"
+use_logical_path = "true"
+
+# Workaround to show hostname
+[env_var.HTB]
+#format = "[$symbol $env_value]($style)"
+variable = "HTB"
+symbol = ""
+default = "HTB"
+format = "[@](bold yellow)[XPS](green)"
+disabled = "false"
+style = "bright-cyan"
+
+[git_branch]
+format = "[$branch]($style)"
+style = "cyan"
+
+[git_status]
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+style = "cyan"
+conflicted = "​"
+untracked = "​"
+modified = "​"
+staged = "​"
+renamed = "​"
+deleted = "​"
+stashed = "≡"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "cyan"
+
+
+[hostname]
+ssh_only = "false"
+trim_at = ""
+format = "[$hostname($style)]"
+style = "green"
+disabled = false
+
+[jobs]
+symbol = "華"
+number_threshold = 1
+symbol_threshold = 1
+style = "bright-black"
+format = "[$symbol$number]($style)"
+
+[localip]
+ssh_only = "false"
+format = "@[$localipv4]($style)"
+style = "yellow"
+disabled = "false"
+
+[python]
+format = "[$virtualenv]($style) "
+style = "cyan"
+
+[status]
+disabled = "false"
+
+[sudo]
+format = "[$symbol]($style)"
+style = "bold green"
+symbol = "R"
+disabled = "false"
+
+[username]
+style_user = "bright-cyan"
+style_root = "bold blue"
+format = "[$user]($style)"
+disabled = "false"
+show_always = true
