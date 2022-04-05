@@ -12,6 +12,7 @@ format = """
 $battery\
 $sudo\
 $shell\
+[\\[](blue bold dimmed)\
 $username\
 [@](yellow)\
 $hostname\
@@ -19,6 +20,7 @@ $localip\
 $env_var\
 [:](yellow)\
 $directory\
+[\\]](blue bold dimmed)\
 $git_branch\
 $git_commit\
 $git_metrics\
@@ -80,7 +82,7 @@ repo_root_style = 'cyan bold dimmed'
 home_symbol = '~'
 
 [directory.substitutions]
-#"~/imgs" = "IMGS"
+"~/UGR" = " ~/UGR"
 
 # Workaround to show hostname
 #[env_var.HTB]
@@ -167,7 +169,7 @@ disabled = false
 ssh_only = true
 format = '[$localipv4]($style)'
 style = 'purple'
-disabled = false
+disabled = true
 
 [python]
 format = "[$virtualenv]($style) "
