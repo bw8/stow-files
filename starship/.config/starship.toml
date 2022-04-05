@@ -119,7 +119,7 @@ added_style = 'bright-green'
 deleted_style = 'red'
 only_nonzero_diffs = true
 format = '[\(](bright-black)([+$added]($added_style))[|](bright-black)([-$deleted]($deleted_style)[\)](bright-black) )'
-disabled = false
+disabled = true
 
 [git_state]
 rebase = 'REBASING'
