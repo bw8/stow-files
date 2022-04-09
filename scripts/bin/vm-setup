@@ -1,0 +1,95 @@
+#!/bin/bash
+#
+#
+#
+# config-file       destination     (dependencies)
+#
+# files to copy:
+# .bashrc                   ~/.bashrc
+# .zshrc                    ~/.zshrc        (zsh zsh-syntax-highlighting zsh-autosuggestions)
+# .config/aliases           --              (bat lsd nvim ranger)
+# .config/starship.toml     --      (starship)
+# .config/tmux/             --*                 [if version>=3.1 can locate config in there]
+# .xprofile                 --
+# .config/Xresources/       --
+# .config/Xmodmap           --
+
+rsync_cmd='rsync -aL --mkpath'
+vm=${1}
+
+path_aliases="$HOME/.config/aliases"
+bashrc="$HOME/.bashrc"
+lsd="$HOME/.config/lsd/config.yaml"
+starship="$HOME/.config/starship.toml"
+tmux="$HOME/.config/tmux/tmux.conf"
+zshrc="$HOME/.config/zsh/.zshrc"
+zshenv="$HOME/.config/zsh/.zshenv"
+profile="$HOME/.profile"
+xprofile="$HOME/.xprofile"
+xmodmap="$HOME/.config/Xmodmap"
+xresources="$HOME/.config/Xresources"
+#ssh parrot.vm 'cp ~/.{bashrc,bashrc.bak}'
+
+# FUNCTIONS
+#function install_starship (){
+#}
+
+# LIST OF FILES
+files="${path_aliases}\
+        ${bashrc}\
+        ${lsd}\
+        ${starship}\
+        ${tmux}\
+        ${xprofile}\
+        ${xmodmap}\
+        ${xresources}"
+
+echo "Setting up $vm..."
+
+
+echo -e "\nCoping following files...\n"
+
+echo "BASH"
+$rsync_cmd $bashrc $vm:
+
+echo "ZSH"
+$rsync_cmd $zshrc $vm:'$ZDOTDIR'
+$rsync_cmd $zshenv $vm:'$ZDOTDIR'
+
+echo -e "\nChecking Starship install..."
+ssh $vm 'starship --version | head -n 1' || { echo ssh $vm 'sed "s/^eval /#&/" ~/.bashrc > ~/.bashrc' && echo 'NOT INSTALLED. Install with "curl -sS https://starship.rs/install.sh | sh"' ; }
+
+echo -e "\nALIASES"
+$rsync_cmd $path_aliases $vm:.config
+
+echo -e "\nLSD"
+$rsync_cmd $lsd $vm:.config/lsd/config.yaml
+
+echo -e "\nprofile"
+$rsync_cmd $profile $vm:
+
+echo -e "\nxprofile"
+$rsync_cmd $xprofile $vm:
+
+tmux_dest='.tmux.conf'
+tmux_version=$(ssh $vm tmux -V | grep -oP '(?<=tmux 3.)[0-9]')
+[[ $tmux_version -ge 1 ]] && tmux_dest='$HOME/.config/tmux/tmux.conf'
+$rsync_cmd $tmux ${vm}:${tmux_dest}
+echo -e "\nTMUX: =====: v 3.$tmux_version :======= : $tmux_dest"
+
+echo -e "\nXmodmap"
+$rsync_cmd $xmodmap $vm:.config
+
+echo -e "\nXresources"
+$rsync_cmd $xresources $vm:.config
+
+
+
+
+#for file in ${files[@]}; do
+#    echo ${file}
+#    rsync -rL ${file} ${vm}:${file:10}
+#done
+
+#sed  's/"\$bashprompt"/"\$parrotprompt"/' ~/.bashrc | ssh ${vm} 'cat /dev/stdin >> $HOME/.bashrc'
+#echo 'source $HOME/.config/aliases' | ssh ${vm} 'cat /dev/stdin >> $HOME/.bashrc'
