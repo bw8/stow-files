@@ -1,0 +1,41 @@
+# Function to source files
+function zsh_add_file() {
+    [[ -f "$ZDOTDIR/$1" ]] && source "$ZDOTDIR/$1" || \
+    [[ -f "/usr/share/zsh/$1" ]] && source "/usr/share/zsh/$1"
+}
+
+# Plugin manager by chris@machine w/ lil changes
+function zsh_add_plugin() {
+    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+    if [[ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" || -d "/usr/share/zsh/plugins/$PLUGIN_NAME" ]]; then
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+    else
+        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+    fi
+}
+
+# Install starship prompt **WIP**
+function zsh_get_starship() {
+    echo 'curl -sS https://starship.rs/install.sh | sh'
+}
+
+
+# Ranger to switch directories.
+rcd () {
+	tmp="$(mktemp)"
+	ranger --choosedir="$tmp" "$@"
+	if [ -f "$tmp" ]; then
+		dir="$(cat "$tmp")"
+		rm -f "$tmp"
+		[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+	fi
+}
+
+# UGR function **WIP**
+fugr () {
+    tmux rename-session UGR
+    selected=`printf "AC\nALG\nFBD" | fzf`
+    tmux rename-window $selected
+    cd ~/UGR/$selected
+}
