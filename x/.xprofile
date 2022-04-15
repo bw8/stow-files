@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+export ZDOTDIR=$HOME/.confg/zsh
+export SHELL=/usr/bin/tmux
+
+xset r rate 250 50
+[[ -f ~/.config/Xmodmap ]] && xmodmap ~/.config/Xmodmap
