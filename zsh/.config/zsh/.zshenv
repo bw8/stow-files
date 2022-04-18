@@ -46,8 +46,8 @@ export EDITOR='nvim'
 export TERMINAL='alacritty'
 
 # PAGER / MANPAGER
-bat -V 1>/dev/null && export PAGER='bat'
-nvim -v 1>/dev/null && export MANPAGER="nvim -c 'Man!' -"
+bat -V &>/dev/null && export PAGER='bat'
+nvim -v &>/dev/null && export MANPAGER="nvim -c 'Man!' -"
 
 # Env variable colors from Xresources
 [ -d $HOME/.config/colors ] && source "$HOME/.config/colors/colors.sh"
