@@ -1,6 +1,7 @@
 # Function to source files
 function zsh_add_file() {
-    [[ -f "$ZDOTDIR/$1" ]] && source "$ZDOTDIR/$1" || \
+    # TODO: Fix conditional to not load /usr/share/zsh if ZDOTDIR is present
+    [[ -f "$ZDOTDIR/$1" ]] && source "$ZDOTDIR/$1"
     [[ -f "/usr/share/zsh/$1" ]] && source "/usr/share/zsh/$1"
 }
 
