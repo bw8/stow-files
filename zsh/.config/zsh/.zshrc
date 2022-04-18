@@ -57,7 +57,7 @@ source "$ZDOTDIR/zsh-functions"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-completions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
-zsh_add_plugin "zsh-users/zsh-vi-mode"
+zsh_add_plugin "jeffreytse/zsh-vi-mode"
 
 
 # ALIASES
