@@ -50,4 +50,4 @@ bat -V 1>/dev/null && export PAGER='bat'
 nvim -v 1>/dev/null && export MANPAGER="nvim -c 'Man!' -"
 
 # Env variable colors from Xresources
-source "/home/bw8/.config/colors/colors.sh"
+[ -d $HOME/.config/colors ] && source "$HOME/.config/colors/colors.sh"
