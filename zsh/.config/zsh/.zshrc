@@ -40,10 +40,10 @@ _comp_options+=(globdots) # Include hidden files
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh/completion
 
-# I'm not sure what these does
-#xdvi() { command xdvi ${*:-*.dvi(om[1])} }
-#zstyle ':completion:*:*:xdvi:*' menu yes select
-#zstyle ':completion:*:*:xdvi:*' file-sort time
+# Helper function to avoid complete (zsh-lovers)
+xdvi() { command xdvi ${*:-*.dvi(om[1])} }
+zstyle ':completion:*:*:xdvi:*' menu yes select
+zstyle ':completion:*:*:xdvi:*' file-sort time
 
 # Completing process IDs
 zstyle ':completion:*:*:kill:*' menu yes select
