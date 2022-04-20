@@ -32,9 +32,9 @@ fi
 # ls rm cp mv mkdir
 # Use lsd or ls colored
 if lsd -V &>/dev/null; then
-    alias ls='ls --color=auto --group-directories-first --human-readable'
-else
     alias ls='lsd'
+else
+    alias ls='ls --color=auto --group-directories-first --human-readable'
 fi
 
 alias la='ls -A'
