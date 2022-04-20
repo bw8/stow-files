@@ -123,6 +123,26 @@
 *.color15: lwit
 *color15:  lwit
 
+! CSR trans levels
+! color77 is color8 with 77 prepended
+*.color22: #222CFEA3
+*color22:  #222CFEA3
+
+*.color33: #332CFEA3
+*color33:  #332CFEA3
+
+*.color44: #442CFEA3
+*color44:  #442CFEA3
+
+*.color55: #552CFEA3
+*color55:  #552CFEA3
+
+*.color66: #662CFEA3
+*color66:  #662CFEA3
+
+*.color77: #772CFEA3
+*color77:  #772CFEA3
+
 ! Black color that will not be affected by bold highlighting.
 ! *.color66: #0b1118
 ! *color66:  #0b1118

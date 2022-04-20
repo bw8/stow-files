@@ -1,5 +1,5 @@
 ! Window dimensions
-xterm*geometry: 160x40
+xterm.vt100.geometry: 160x40
 
 ! Set TERM
 xterm.termName: xterm-256color
