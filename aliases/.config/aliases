@@ -7,62 +7,74 @@
 #
 #######################################################################
 
-alias alacrifloat='alacritty --class float --config-file=$HOME/.config/alacritty/float.yml'
-alias alacritty-ps='alacritty --class music --config-file=$HOME/.config/alacritty/ps-tiled.yml'
-#alias cmus='alacritty -e "cmus" --class music --config-file=$HOME/.config/alacritty/ps-tiled.yml '
+# Alacritty
+if alacritty -V &>/dev/null; then
+    alias alacrifloat='alacritty --class float --config-file=$HOME/.config/alacritty/float.yml'
+    alias alacritty-ps='alacritty --class music --config-file=$HOME/.config/alacritty/ps-tiled.yml'
+    #alias cmus='alacritty -e "cmus" --class music --config-file=$HOME/.config/alacritty/ps-tiled.yml '
+    # Temporary alias to show color
+    #alias hex-color='alacritty --class=other,other -e hex-visual &'
+fi
 
-alias dmenu='rofi -dmenu -i'
-alias clk='tty-clock -cD'
+# Rofi
+if ! dmenu -v &>/dev/null && rofi -version &>/dev/null; then
+    alias dmenu='rofi -dmenu -i'
+fi
 
+
+# ZSH ONLY
+if [ -n "$ZSH_VERSION" ]; then
+    alias -g ...='../..'
+    alias -g ....='../../..'
+    alias -g .....='../../../..'
+fi
 
 # ls rm cp mv mkdir
-alias ls='lsd'
-#alias ls='ls -h'
+# Use lsd or ls colored
+if lsd -V &>/dev/null; then
+    alias ls='ls --color=auto --group-directories-first --human-readable'
+else
+    alias ls='lsd'
+fi
+
+alias la='ls -A'
+alias ll='ls -l'
+alias lla='ls -lA'
+
 alias rm='rm -vdr'
 alias cp='cp -riv'
 alias mv='mv -iv'
 alias mkdir='mkdir -pv'
 
+
 alias sxiv='sxiv -abfq'
 alias vim='vim -u $HOME/.config/vim/vimrc'
 alias v='nvim'
 alias r='ranger'
+alias nb='newsboat'
 
 # Adding color
 alias diff='diff --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip --color=auto'
+
 
 # Git
 alias gits='git status'
 alias gitd='git diff'
+
 
 alias playerctl='playerctl --player=%any,mpv,firefox'
 
 alias ticker='ticker --config $HOME/.config/ticker/ticker.yml'
 alias mpvcam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
 
-# Temporary alias to show color
-#alias hex-color='alacritty --class=other,other -e hex-visual &'
-
-
-#alias fehh='feh --scale-down --auto-zoom'
-#alias fd='fdfind'
-# alias spocli='alacritty --class spt -d 140 40 -e spt'
-#alias cbl='bluetoothctl connect E8:EC:A3:92:2D:6B'
-#alias dbl='bluetoothctl disconnect E8:EC:A3:92:2D:6B'
-alias hex-color='alacritty --class=other,other -e hex-visual &'
-
-
-alias nb='newsboat'
-
-# Remove wuoalah-free- from filenames
-alias unwuolah='for f in wuolah*; do mv "$f" "${f:${$(echo "wuolah-free"| wc -m)}}"; done'
-
 # UGR
 #alias ugr='MAT="$(tmugr)"; cd ~/UGR/$MAT && tmux rename-session "$MAT"'
-alias ugr='MAT="$(tmugr)"; if [[ $(tmux ls | grep ${MAT}) ]]; then
-    tmux switch-client -t "$MAT"
-else
-    cd ~/UGR/$MAT && tmux rename-session "$MAT"
-fi'
+#alias ugr='MAT="$(tmugr)"; if [[ $(tmux ls | grep ${MAT}) ]]; then
+#    tmux switch-client -t "$MAT"
+#else
+#    cd ~/UGR/$MAT && tmux rename-session "$MAT"
+#fi'
