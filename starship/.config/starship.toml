@@ -155,7 +155,7 @@ ssh_only = false
 trim_at = ''
 format = '[$hostname]($style)'
 style = 'green dimmed bold'
-disabled = "false"
+disabled = false
 
 [jobs]
 symbol_threshold = 1
