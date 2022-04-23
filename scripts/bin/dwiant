@@ -18,3 +18,5 @@ mkdir -p /tmp/dwiant
 cd /tmp/dwiant
 wget &>>/tmp/dwiant.log "$img_link" -O "${img_name}_by_${img_author}.$img_ext"
 mv "${img_name}_by_${img_author}.$img_ext" "$HOME/imgs/devart/"
+
+notify-send -i "$HOME/imgs/devart/${img_name}_by_${img_author}.$img_ext" "Saved ${img_name}_by_${img_author}.$img_ext"
