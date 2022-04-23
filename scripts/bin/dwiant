@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+# Script to download images from Deviant Art
+
+#link="https://www.deviantart.com/kilartdev/art/tamigan-495304395"
+link="$(xclip -se c -o)"
+
+# Identify domain page
+page="$(printf $link | grep -oE 'https://(www\.)?\w+\.\w+' | sed s#https://www.##)"
+# Extract img direct link from source page
+img_link="$(curl --no-progress-meter $link | awk 'NR==7' | tr ' ' '\n' | tail -n 2 | head -n 1)"
+img_link=${img_link:6: -1} # Remove href= from begining and ""
+
+img_author="$(printf ${link/*$page\//} | sed 's#/.*##')"
+img_name=$(basename "$link" | rev | sed 's/[0-9]*-//' | rev)
+img_ext=$(printf ${img_link/?token*/} | sed 's/.*\.//')
+
+mkdir -p /tmp/dwiant
+cd /tmp/dwiant
+wget &>>/tmp/dwiant.log "$img_link" -O "${img_name}_by_${img_author}.$img_ext"
+mv "${img_name}_by_${img_author}.$img_ext" "$HOME/imgs/devart/"
