@@ -33,6 +33,7 @@ lualine.setup {
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         disabled_filetypes = { "dashboard" },
+        globalstatus = true,    -- Only 1 status line at the bottom
     },
     sections = {
         lualine_a = {'mode'},
