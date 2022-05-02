@@ -32,7 +32,7 @@ vim.opt.showmatch =         true
 vim.opt.incsearch =         true    --* Highlight search results while typing
 vim.opt.smartcase =         true    -- case-insensitive search if only lowercase
 
--- -------------------- Highlight --------------------
+-- -------------------- Search Highlight --------------------
 -- vim.opt.syntax =            "on"    -- Enable syntax highlighting
 
 -- vim.cmd('au BufNewFile,BurRead /*.rasi setf css')   -- Rofi syntax highlight
@@ -44,34 +44,6 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 vim.opt.swapfile = false
-
--- -------------------- Colorscheme --------------------
-vim.o.termguicolors =     true
-vim.o.background =          'dark'
-require('xresources')
-
--- ------------------- Pywal theme ---------------------
--- local pywal = require('pywal')
--- pywal.setup()
--- activating for lua
--- local lualine = require('lualine')
--- lualine.setup {
---     options = {
---         theme = 'pywal-nvim',
---     },
--- }
--- --------------- Highlight cursor line ---------------
-vim.opt.cursorline =        true     -- Highlight current line
-vim.cmd("hi CursorLine term=NONE cterm=bold ctermbg=0 ctermfg=NONE gui=bold guibg=#0e2628")   -- TODO: make it lua
-vim.cmd("hi CursorLineNR term=NONE cterm=bold ctermbg=0 ctermfg=11 gui=NONE")   -- TODO: make it lua
--- --------------- Highlight column number ---------------
-vim.opt.colorcolumn =       "80"     -- Highlight column number N
-vim.cmd("hi ColorColumn ctermbg=0 guibg=#0e2628") -- TODO: make it lua
--- -------------------- Colors --------------------
--- Comments
-vim.cmd("hi Comment ctermfg=8 guifg=#153d38")
--- Folds
-vim.cmd("hi Folded ctermfg=7 ctermbg=8 guifg=#818384 guibg=#153d38")
 
 -- -------------------- Spell check --------------------
 vim.opt.spelllang =         "en,es_es"        -- Set languages for spelling
