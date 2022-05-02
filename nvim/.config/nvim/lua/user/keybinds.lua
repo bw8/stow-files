@@ -18,7 +18,7 @@ local opts = { noremap = true, silent = true }
 --  command_mode = 'c'
 
 
--- ================================= Normal ===================================
+-- ================================== Normal ==================================
 -- Move across windows
 keymap('n', '<leader>h', ':wincmd h<CR>', opts)
 keymap('n', '<leader>j', ':wincmd j<CR>', opts)
@@ -56,7 +56,12 @@ keymap('n', '<leader>fb', '<CMD>lua require("telescope.builtin").buffers()<CR>',
 keymap('n', '<leader>fh', '<CMD>lua require("telescope.builtin").help_tags()<CR>', opts)
 
 
--- ================================== Insert ==================================
+-- ================================= Insert ===================================
 -- -------------------- Spell check --------------------
 keymap('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', opts) -- <C-l> to correct word
 
+
+-- ================================= Visual ===================================
+-- Keep selected after indent
+keymap('v', '<', '<gv', opts)
+keymap('v', '>', '>gv', opts)
