@@ -83,11 +83,3 @@ vim.api.nvim_exec([[ autocmd BufWritePre * %s/\s\+$//e ]], true)
 -- -------------------- VimWiki --------------------
 vim.cmd("let g:vimwiki_list = [{'path': '~/docs/vimwiki/','syntax': 'markdown', 'ext': '.md'}]")
 
--- -------------------- Dashboard --------------------
-vim.cmd("let g:dashboard_default_executive ='telescope'")
--- vim.cmd("let g:dashboard_custom_shortcut={
--- \ 'last_session'        : 'SPC s l',
--- \ 'find_history'        : 'SPC f h',
--- \ 'find_file'           : 'SPC f f',
--- \ 'book_marks'          : 'SPC f b',
--- \ }")
