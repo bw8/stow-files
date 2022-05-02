@@ -14,7 +14,7 @@ vim.opt.shiftround =        true    -- round indent to a multiple of shiftwidth
 
 vim.opt.showcmd =           true    --* Show (partial) command in the last line
 -- vim.opt.history =        1000    --* Save last N :cmdline commands
-vim.opt.showmode =          true    -- Show current mode at bottom
+vim.opt.showmode =          false    -- Show current mode at bottom
 -- vim.opt.autoread =       true    -- Reload files changed outside
 
 vim.opt.scrolloff =         4       -- Start scrolling N lines before edge
