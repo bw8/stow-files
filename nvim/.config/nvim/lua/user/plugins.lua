@@ -1,4 +1,28 @@
 -- -------------------- Plugin manager --------------------
+-- Automatically install packer
+local fn = vim.fn
+local install_path = fn.stdpath "data" .. "/site/pack/packer/startpacker.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+    PACKER_BOOTSTRAP = fn.system {
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "https://github.com/wbthomason/packer.nvim",
+        install_path,
+    }
+    print "Installing packer close and reopen Neovim..."
+    vim.cmd [[packadd packer.nvim]]
+end
+
+-- Autocommand that reloads neovim plugins whenever you save the plugins.lua file
+vim.cmd [[
+    augroup packer_user_config
+        autocmd!
+        autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    augroup end
+]]
+
 -- Protected call so we don't error out if packer isn't available
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
@@ -51,26 +75,12 @@ return packer.startup(function(use)
             }
         end
     }
-    -- use {
-    --     'goolord/alpha-nvim',
-    --     requires = { 'kyazdani42/nvim-web-devicons' },
-    --     config = function ()
-    --         require'alpha'.setup(require'alpha.themes.startify'.config)
-    --         -- Add custom entries
-    --         local startify = require("alpha.themes.startify")
-    --         startify.section.top_buttons.val = {
-    --             startify.button("e", "New file", ":ene<CR>"),
-    --             startify.button("c", "Nvim config", ":e ~/.config/nvim/init.lua<CR>"),
-    --         }
-    --         vim.api.nvim_set_keymap('n', '<C-n>', ":Alpha<CR>", {noremap = true})
-    --     end
-    -- }
 
     -- Treesitter
     use 'nvim-treesitter/nvim-treesitter'
 
     -- Playground
-    use 'nvim-treesitter/playground'
+    use 'nvim-treesitter/playground' -- View highlight groups in real time
 
     -- Lsp-config
     use {
@@ -87,12 +97,18 @@ return packer.startup(function(use)
     use 'hrsh7th/cmp-nvim-lua'      -- provide completions from neovim lua
 
     -- Snippets
-    use "L3MON4D3/LuaSnip"          -- Snippet engine
-    use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
+    use "L3MON4D3/LuaSnip"              -- Snippet engine
+    use "rafamadriz/friendly-snippets"  -- a bunch of snippets to use
 
     -- Telescope
     use {
         'nvim-telescope/telescope.nvim',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
+
+    -- Automatically set up your configuration after cloning packer.nvim
+    -- This must be at the end
+    if PACKER_BOOTSTRAP then
+        require("packer").sync()
+    end
 end)
