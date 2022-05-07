@@ -33,6 +33,13 @@ rcd () {
 	fi
 }
 
+# Make directory and cd into it
+mkcd () {
+    dir_name="$1"
+    mkdir -p "$dir_name"
+    cd "$dir_name"
+}
+
 # UGR function **WIP**
 fugr () {
     tmux rename-session UGR
