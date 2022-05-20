@@ -8,7 +8,7 @@
 #######################################################################
 
 # Alacritty
-if alacritty -V &>/dev/null; then
+if which alacritty &>/dev/null; then
     alias alacrifloat='alacritty --class float --config-file=$HOME/.config/alacritty/float.yml'
     alias alacritty-ps='alacritty --class music --config-file=$HOME/.config/alacritty/ps-tiled.yml'
     #alias cmus='alacritty -e "cmus" --class music --config-file=$HOME/.config/alacritty/ps-tiled.yml '
@@ -17,7 +17,7 @@ if alacritty -V &>/dev/null; then
 fi
 
 # Rofi
-if ! dmenu -v &>/dev/null && rofi -version &>/dev/null; then
+if ! which dmenu &>/dev/null && which rofi &>/dev/null; then
     alias dmenu='rofi -dmenu -i'
 fi
 
